@@ -5,7 +5,7 @@ const products = {
             id: 1,
             name: 'Artisan Ceramic Vase',
             price: 68.00,
-            img: 'WhatsApp Image 2024-12-27 at 16.39.54_3ddef5dc.jpg',
+            img: 'placeholder.jpeg',
             category: 'homeDecor',
             details: {
                 Material: 'Stoneware Clay',
@@ -17,7 +17,7 @@ const products = {
             id: 2,
             name: 'Macramé Wall Art',
             price: 45.00,
-            img: 'WhatsApp Image 2024-12-27 at 16.39.44_53898508.jpg',
+            img: 'placeholder.jpeg',
             category: 'homeDecor',
             details: {
                 Material: 'Organic Cotton Cord',
@@ -31,7 +31,7 @@ const products = {
             id: 1,
             name: 'Oil Landscape Painting',
             price: 350.00,
-            img: 'WhatsApp Image 2024-12-27 at 03.44.39_4237d596.jpg',
+            img: 'placeholder.jpeg',
             category: 'artCollectibles',
             details: {
                 Medium: 'Oil on Canvas',
@@ -43,7 +43,7 @@ const products = {
             id: 2,
             name: 'Bronze Figurine',
             price: 120.00,
-            img: 'WhatsApp Image 2024-12-27 at 03.41.17_1d279071.jpg',
+            img: 'placeholder.jpeg',
             category: 'artCollectibles',
             details: {
                 Material: 'Lost-wax Casting',
@@ -57,7 +57,7 @@ const products = {
             id: 1,
             name: 'Silk Embroidered Scarf',
             price: 55.00,
-            img: 'WhatsApp Image 2024-12-27 at 18.28.04_5214b3d9.jpg',
+            img: 'placeholder.jpeg',
             category: 'accessories',
             details: {
                 Material: '100% Mulberry Silk',
@@ -69,7 +69,7 @@ const products = {
             id: 2,
             name: 'Tooled Leather Journal',
             price: 42.00,
-            img: 'WhatsApp Image 2024-12-27 at 18.00.56_ec103c53.jpg',
+            img: 'placeholder.jpeg',
             category: 'accessories',
             details: {
                 Material: 'Vegetable-tanned Leather',
@@ -83,7 +83,7 @@ const products = {
             id: 1,
             name: 'Linen Wedding Invitations',
             price: 35.00,
-            img: 'freepik-holo-abstract-ticket-49922-20241227164349EBoX.png',
+            img: 'placeholder.jpeg',
             category: 'paperGoods',
             details: {
                 Material: '120gsm Linen Paper',
@@ -95,7 +95,7 @@ const products = {
             id: 2,
             name: 'Botanical Art Prints',
             price: 25.00,
-            img: 'WhatsApp Image 2024-12-27 at 03.45.04_34ea5fec.jpg',
+            img: 'placeholder.jpeg',
             category: 'paperGoods',
             details: {
                 Paper: 'Archival Matte',
@@ -109,7 +109,7 @@ const products = {
             id: 1,
             name: 'Montessori Sorting Toy',
             price: 28.00,
-            img: 'WhatsApp Image 2024-12-27 at 17.05.52_833ec794.jpg',
+            img: 'placeholder.jpeg',
             category: 'toys',
             details: {
                 Material: 'Solid Beechwood',
@@ -121,7 +121,7 @@ const products = {
             id: 2,
             name: 'Felt Farm Animal Set',
             price: 38.00,
-            img: 'WhatsApp Image 2024-12-27 at 16.55.50_dcd8cc02.jpg',
+            img: 'placeholder.jpeg',
             category: 'toys',
             details: {
                 Details: 'Hand-stitched',
@@ -135,7 +135,7 @@ const products = {
             id: 1,
             name: 'Merino Wool Yarn',
             price: 12.00,
-            img: 'WhatsApp Image 2024-12-27 at 18.28.34_fd5d8c7d.jpg',
+            img: 'placeholder.jpeg',
             category: 'fiberCrafts',
             details: {
                 Weight: 'DK (50g skein)',
@@ -147,7 +147,7 @@ const products = {
             id: 2,
             name: 'Beginner Weaving Kit',
             price: 55.00,
-            img: 'WhatsApp Image 2024-12-27 at 18.28.34_0216df28.jpg',
+            img: 'placeholder.jpeg',
             category: 'fiberCrafts',
             details: {
                 Includes: 'Loom + Tools',
