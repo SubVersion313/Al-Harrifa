@@ -3,186 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AL-HARRIFFA STORE</title>
+    <title>AL-HARRIFA STORE</title>
     <link rel="icon" href="3be07d4d222f06f0333810def3d4dfd7-removebg-preview.png" type="image/png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
     <link href="home.css" rel="stylesheet">
 </head>
 <body>
     <header>
         <div class="logo">
             <img src="Logo.png" alt="Logo">
-            <h2>AL-HARIFFA</h2>
+            <h2>AL-HARRIFA</h2>
         </div>  
         <nav>
-            <a href="index.html" >Home</a>
-            <a href="#tshirts">T-Shirts</a>
-            <a href="#tickets">Tickets</a>
-            <a href="#prints">Printed Materials</a>
-            <a href="#cart">Cart && Payment</a> <!-- Add cart link -->
+            <a href="home.html">Home</a>
+            <a href="home.html">My Products</a>
+            <a href="home.html">My Purchases</a>
+            <a href="#cart">Cart & Payment</a>
+            <a href="login.html">Login</a>
+            <div class="dropdown-nav">
+                <select class="nav-dropdown" onchange="window.location.href=this.value;">
+                    <option value="">Browse Categories</option>
+                    <option value="#home-decor">Home Decor</option>
+                    <option value="#art-collectibles">Art & Collectibles</option>
+                    <option value="#accessories">Accessories</option>
+                    <option value="#paper-goods">Paper Goods</option>
+                    <option value="#toys">Toys</option>
+                    <option value="#fiber-crafts">Fiber Crafts</option>
+                </select>
+                <div class="dropdown-arrow">▼</div>
+            </div>
         </nav>
     </header>
 
     <div class="container">
-        <!-- T-Shirts Section -->
-        <section id="tshirts" class="section">
-            <h2>T-Shirts</h2>
-            <div class="items" id="tshirt-items">
-                <div class="item">
-                    <img src="WhatsApp Image 2024-12-27 at 16.39.54_3ddef5dc.jpg" alt="T-Shirt 1">
-                    <div class="info">
-                        <h3>Home Kit:</h3>
-                        <p>Size: S, M,</p>
-                        <p>Material: </p>
-                        <p>Type: </p>
-                        <p>Price:</p>
-                    </div>
-                </div>
-                <div class="item">
-                    <img src="WhatsApp Image 2024-12-27 at 16.39.44_53898508.jpg" alt="T-Shirt 2">
-                    <div class="info">
-                        <h3>Away Kit</h3>
-                        <p>Size: M, L,</p>
-                        <p>Material: </p>
-                        <p>Type:</p>
-                        <p>Price: </p>
-                    </div>
-                </div>
-                <div class="item">
-                    <img src="WhatsApp Image 2024-12-27 at 03.44.39_4237d596.jpg" alt="T-Shirt 2">
-                    <div class="info">
-                        <h3>Third:</h3>
-                        <p>Size: S,</p>
-                        <p>Material: </p>
-                        <p>Type: </p>
-                        <p>Price: </p>
-                    </div>
-                </div>
-                <div class="item">
-                    <img src="WhatsApp Image 2024-12-27 at 03.41.17_1d279071.jpg" alt="T-Shirt 2">
-                    <div class="info">
-                        <h3>Third:</h3>
-                        <p>Size: S,</p>
-                        <p>Material: </p>
-                        <p>Type: </p>
-                        <p>Price: </p>
-                    </div>
-                </div>
-                <div class="item">
-                    <img src="WhatsApp Image 2024-12-27 at 18.28.04_5214b3d9.jpg" alt="T-Shirt 2">
-                    <div class="info">
-                        <h3>Third:</h3>
-                        <p>Size: S,</p>
-                        <p>Material: </p>
-                        <p>Type: </p>
-                        <p>Price: </p>
-                    </div>
-                </div>
-                <!-- More T-Shirt items can go here -->
+        <!-- Home Decor Section -->
+        <section id="home-decor" class="section">
+            <h2 data-category="home-decor"><i class="fas fa-home"></i>Home Decor</h2>
+            <div class="items">
+                
             </div>
         </section>
 
-        <!-- Tickets Section -->
-        <section id="tickets" class="section">
-            <h2>Tickets</h2>
-            <div class="items" id="ticket-items">
-                <div class="item">
-                    <img src="WhatsApp Image 2024-12-27 at 18.00.56_ec103c53.jpg" alt="Ticket 1">
-                    <h3>Third:</h3>
-                    <p>Size: S,</p>
-                    <p>Material: </p>
-                    <p>Type: </p>
-                    <p>Price: </p>
-                    </div>
-                </div>
-                <div class="item">
-                    <img src="freepik-holo-abstract-ticket-49922-20241227164349EBoX.png" alt="Ticket 2">
-                    <div class="info">     
-                         <h3>Third:</h3>
-                        <p>Size: S,</p>
-                        <p>Material: </p>
-                        <p>Type: </p>
-                        <p>Price: </p>
-                    </div>
-                </div>
-                <div class="item">
-                    <img src="WhatsApp Image 2024-12-27 at 03.45.04_34ea5fec.jpg" alt="Ticket 3">
-                    <div class="info">
-                        <h3>Third:</h3>
-                        <p>Size: S,</p>
-                        <p>Material: </p>
-                        <p>Type: </p>
-                        <p>Price: </p>
-                    </div>
-                </div>
-                <!-- More Ticket items can go here -->
+        <!-- Art & Collectibles Section -->
+        <section id="art-collectibles" class="section">
+            <h2 data-category="home-decor"><i class="fas fa-home"></i>Art & Collectibles</h2>
+            <div class="items">
+                
             </div>
         </section>
 
-        <!-- Printed Materials Section -->
-        <section id="prints" class="section">
-            <h2>Printed Materials</h2>
-            <div class="items" id="print-items">
-                <div class="item">
-                    <img src="WhatsApp Image 2024-12-27 at 17.05.52_833ec794.jpg" alt="Poster 1">
-                    <div class="info">
-                        <h3>Third:</h3>
-                        <p>Size: S,</p>
-                        <p>Material: </p>
-                        <p>Type: </p>
-                        <p>Price: </p>
-                    </div>
-                </div>
-                <div class="item">
-                    <img src="WhatsApp Image 2024-12-27 at 16.55.50_dcd8cc02.jpg" alt="Poster 2">
-                    <div class="info">
-                        <h3>Third:</h3>
-                        <p>Size: S,</p>
-                        <p>Material: </p>
-                        <p>Type: </p>
-                        <p>Price: </p>
-                    </div>
-                </div>
-                <div class="item">
-                    <img src="WhatsApp Image 2024-12-27 at 18.28.34_fd5d8c7d.jpg" alt="Sticker 1">
-                    <div class="info">
-                        <h3>Third:</h3>
-                        <p>Size: S,</p>
-                        <p>Material: </p>
-                        <p>Type: </p>
-                        <p>Price: </p>
-                    </div>
-                </div>
-                <div class="item">
-                    <img src="WhatsApp Image 2024-12-27 at 18.28.34_0216df28.jpg" alt="Sticker 1">
-                    <div class="info">
-                        <h3>Third:</h3>
-                        <p>Size: S,</p>
-                        <p>Material: </p>
-                        <p>Type: </p>
-                        <p>Price: </p>
-                    </div>
-                </div>
-                <!-- More Printed Material items can go here -->
+        <!-- Accessories Section -->
+        <section id="accessories" class="section">
+            <h2 data-category="home-decor"><i class="fas fa-home"></i>Artisan Accessories</h2>
+
+            <div class="items">
+                
             </div>
         </section>
 
-     <!-- Cart Section -->
-<section id="cart" class="section">
-    <h2>Your Cart</h2>
-    <div id="cart-items"></div> <!-- Show cart items here -->
-    <p>Total: $<span id="total-price">0.00</span></p>
-    <button onclick="clearCart()">Clear Cart</button>
-    <!-- Link to Payment Page -->
-    <a href="electronicpayment.html">
-        <button>Proceed to Payment</button>
-    </a>
-</section>
+        <!-- Paper Goods Section -->
+        <section id="paper-goods" class="section">
+            <h2 data-category="home-decor"><i class="fas fa-home"></i>Paper Goods</h2>
+            <div class="items">
+                
+            </div>
+        </section>
 
+        <!-- Toys Section -->
+        <section id="toys" class="section">
+            <h2 data-category="home-decor"><i class="fas fa-home"></i>Handcrafted Toys</h2>
+            <div class="items">
+                
+            </div>
+        </section>
+
+        <!-- Fiber Crafts Section -->
+        <section id="fiber-crafts" class="section">
+            <h2 data-category="home-decor"><i class="fas fa-home"></i>Fiber Crafts</h2>
+            <div class="items">
+                
+            </div>
+        </section>
+
+             <!-- Cart Section -->
+        <section id="cart" class="section">
+            <h2>Your Cart</h2>
+            <div id="cart-items"></div>
+            <p>Total: $<span id="total-price">0.00</span></p>
+            <button onclick="clearCart()">Clear Cart</button>
+            <button onclick="proceedToPayment()">Proceed to Payment</button>
+        </section>
     </div>
-
     <footer>
-        <p>&copy; 2025 SC Al-HARIFFA STORE. All rights reserved.</p>
+        <p>&copy; 2025 SC Al-HARRIFA STORE. All rights reserved.</p>
         <div class="social-icons">
             <a class="1"  href="https://www.facebook.com/profile.php?id=61571309936419&mibextid=ZbWKwL" target="_blank" aria-label="Facebook">
                 <i class="fab fa-facebook-f"></i>
@@ -193,10 +107,10 @@
             <a class="6" href="https://www.tiktok.com/@mavro_sc?_t=ZS-8sZAHXjtuCG&_r=1" target="_blank" aria-label="TikTok">
                 <i class="fab fa-tiktok"></i>
             </a>
+           
+            
         </div>
     </footer>
-    <script src="Store Mavro SC .js"></script>
+    <script src="home.js"></script>
 </body>
 </html>
-
-
