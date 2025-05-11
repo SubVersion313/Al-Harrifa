@@ -5,8 +5,7 @@ body {
     background: linear-gradient(to bottom right, #7f896b, #218838);
     color: white;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
     min-height: 100vh;
 }
 
@@ -25,6 +24,7 @@ p {
     text-align: center;
     padding: 30px 25px;
     width: 350px;
+    margin: auto; /* Centers the login box */
 }
 
 .header img {
@@ -189,11 +189,9 @@ form button:hover {
 
 footer {
     text-align: center;
-    padding: -5px 0;
+    padding: 20px 0;
     color: white;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+    margin-top: auto; /* Pushes footer to bottom */
 }
 
 
