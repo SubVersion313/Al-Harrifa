@@ -1,4 +1,3 @@
-// Updated products data for new categories
 const products = {
     homeDecor: [
         { 
@@ -15,6 +14,42 @@ const products = {
         },
         { 
             id: 2,
+            name: 'Macramé Wall Art',
+            price: 45.00,
+            img: 'placeholder.jpeg',
+            category: 'homeDecor',
+            details: {
+                Material: 'Organic Cotton Cord',
+                Dimensions: '24" Diameter',
+                Style: 'Bohemian Design'
+            }
+        },
+        { 
+            id: 3,
+            name: 'Macramé Wall Art',
+            price: 45.00,
+            img: 'placeholder.jpeg',
+            category: 'homeDecor',
+            details: {
+                Material: 'Organic Cotton Cord',
+                Dimensions: '24" Diameter',
+                Style: 'Bohemian Design'
+            }
+        },
+        { 
+            id: 4,
+            name: 'Macramé Wall Art',
+            price: 45.00,
+            img: 'placeholder.jpeg',
+            category: 'homeDecor',
+            details: {
+                Material: 'Organic Cotton Cord',
+                Dimensions: '24" Diameter',
+                Style: 'Bohemian Design'
+            }
+        },
+        { 
+            id: 5,
             name: 'Macramé Wall Art',
             price: 45.00,
             img: 'placeholder.jpeg',
@@ -50,6 +85,42 @@ const products = {
                 Height: '8"',
                 Edition: 'Limited Edition'
             }
+        },
+        { 
+            id: 3,
+            name: 'Bronze Figurine',
+            price: 120.00,
+            img: 'placeholder.jpeg',
+            category: 'artCollectibles',
+            details: {
+                Material: 'Lost-wax Casting',
+                Height: '8"',
+                Edition: 'Limited Edition'
+            }
+        },
+        { 
+            id: 4,
+            name: 'Bronze Figurine',
+            price: 120.00,
+            img: 'placeholder.jpeg',
+            category: 'artCollectibles',
+            details: {
+                Material: 'Lost-wax Casting',
+                Height: '8"',
+                Edition: 'Limited Edition'
+            }
+        },
+        { 
+            id: 5,
+            name: 'Bronze Figurine',
+            price: 120.00,
+            img: 'placeholder.jpeg',
+            category: 'artCollectibles',
+            details: {
+                Material: 'Lost-wax Casting',
+                Height: '8"',
+                Edition: 'Limited Edition'
+            }
         }
     ],
     accessories: [
@@ -67,6 +138,42 @@ const products = {
         },
         { 
             id: 2,
+            name: 'Tooled Leather Journal',
+            price: 42.00,
+            img: 'placeholder.jpeg',
+            category: 'accessories',
+            details: {
+                Material: 'Vegetable-tanned Leather',
+                Size: 'A5',
+                Construction: 'Hand-stitched Binding'
+            }
+        },
+        { 
+            id: 3,
+            name: 'Tooled Leather Journal',
+            price: 42.00,
+            img: 'placeholder.jpeg',
+            category: 'accessories',
+            details: {
+                Material: 'Vegetable-tanned Leather',
+                Size: 'A5',
+                Construction: 'Hand-stitched Binding'
+            }
+        },
+        { 
+            id: 4,
+            name: 'Tooled Leather Journal',
+            price: 42.00,
+            img: 'placeholder.jpeg',
+            category: 'accessories',
+            details: {
+                Material: 'Vegetable-tanned Leather',
+                Size: 'A5',
+                Construction: 'Hand-stitched Binding'
+            }
+        },
+        { 
+            id: 5,
             name: 'Tooled Leather Journal',
             price: 42.00,
             img: 'placeholder.jpeg',
@@ -102,6 +209,42 @@ const products = {
                 Sizes: '8x10" to 16x20"',
                 Edition: 'Limited Edition Numbering'
             }
+        },
+        { 
+            id: 3,
+            name: 'Botanical Art Prints',
+            price: 25.00,
+            img: 'placeholder.jpeg',
+            category: 'paperGoods',
+            details: {
+                Paper: 'Archival Matte',
+                Sizes: '8x10" to 16x20"',
+                Edition: 'Limited Edition Numbering'
+            }
+        },
+        { 
+            id: 4,
+            name: 'Botanical Art Prints',
+            price: 25.00,
+            img: 'placeholder.jpeg',
+            category: 'paperGoods',
+            details: {
+                Paper: 'Archival Matte',
+                Sizes: '8x10" to 16x20"',
+                Edition: 'Limited Edition Numbering'
+            }
+        },
+        { 
+            id: 5,
+            name: 'Botanical Art Prints',
+            price: 25.00,
+            img: 'placeholder.jpeg',
+            category: 'paperGoods',
+            details: {
+                Paper: 'Archival Matte',
+                Sizes: '8x10" to 16x20"',
+                Edition: 'Limited Edition Numbering'
+            }
         }
     ],
     toys: [
@@ -128,6 +271,42 @@ const products = {
                 Pieces: '10 Piece Set',
                 Care: 'Washable Materials'
             }
+        },
+        { 
+            id: 3,
+            name: 'Felt Farm Animal Set',
+            price: 38.00,
+            img: 'placeholder.jpeg',
+            category: 'toys',
+            details: {
+                Details: 'Hand-stitched',
+                Pieces: '10 Piece Set',
+                Care: 'Washable Materials'
+            }
+        },
+        { 
+            id: 4,
+            name: 'Felt Farm Animal Set',
+            price: 38.00,
+            img: 'placeholder.jpeg',
+            category: 'toys',
+            details: {
+                Details: 'Hand-stitched',
+                Pieces: '10 Piece Set',
+                Care: 'Washable Materials'
+            }
+        },
+        { 
+            id: 5,
+            name: 'Felt Farm Animal Set',
+            price: 38.00,
+            img: 'placeholder.jpeg',
+            category: 'toys',
+            details: {
+                Details: 'Hand-stitched',
+                Pieces: '10 Piece Set',
+                Care: 'Washable Materials'
+            }
         }
     ],
     fiberCrafts: [
@@ -145,6 +324,42 @@ const products = {
         },
         { 
             id: 2,
+            name: 'Beginner Weaving Kit',
+            price: 55.00,
+            img: 'placeholder.jpeg',
+            category: 'fiberCrafts',
+            details: {
+                Includes: 'Loom + Tools',
+                Material: 'Organic Cotton',
+                Instructions: 'Instruction Booklet'
+            }
+        },
+        { 
+            id: 3,
+            name: 'Beginner Weaving Kit',
+            price: 55.00,
+            img: 'placeholder.jpeg',
+            category: 'fiberCrafts',
+            details: {
+                Includes: 'Loom + Tools',
+                Material: 'Organic Cotton',
+                Instructions: 'Instruction Booklet'
+            }
+        },
+        { 
+            id: 4,
+            name: 'Beginner Weaving Kit',
+            price: 55.00,
+            img: 'placeholder.jpeg',
+            category: 'fiberCrafts',
+            details: {
+                Includes: 'Loom + Tools',
+                Material: 'Organic Cotton',
+                Instructions: 'Instruction Booklet'
+            }
+        },
+        { 
+            id: 5,
             name: 'Beginner Weaving Kit',
             price: 55.00,
             img: 'placeholder.jpeg',
