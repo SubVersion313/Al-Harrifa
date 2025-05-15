@@ -1,4 +1,4 @@
-const products = {
+window.products = {
     homeDecor: [
         { 
             id: 1,
@@ -14,53 +14,54 @@ const products = {
         },
         { 
             id: 2,
-            name: 'Macramé Wall Art',
-            price: 45.00,
+            name: 'Macramé Wall Hanging',
+            price: 85.00,
             img: 'placeholder.jpeg',
             category: 'homeDecor',
             details: {
                 Material: 'Organic Cotton Cord',
                 Dimensions: '24" Diameter',
-                Style: 'Bohemian Design'
+                Features: 'Bohemian Design'
             }
         },
         { 
             id: 3,
-            name: 'Macramé Wall Art',
+            name: 'Geometric Cement Planter',
             price: 45.00,
             img: 'placeholder.jpeg',
             category: 'homeDecor',
             details: {
-                Material: 'Organic Cotton Cord',
-                Dimensions: '24" Diameter',
-                Style: 'Bohemian Design'
+                Material: 'Concrete Mix',
+                Dimensions: '8" Diameter',
+                Features: 'Drainage Hole Included'
             }
         },
         { 
             id: 4,
-            name: 'Macramé Wall Art',
-            price: 45.00,
+            name: 'Handwoven Jute Rug',
+            price: 120.00,
             img: 'placeholder.jpeg',
             category: 'homeDecor',
             details: {
-                Material: 'Organic Cotton Cord',
-                Dimensions: '24" Diameter',
-                Style: 'Bohemian Design'
+                Material: 'Natural Jute',
+                Dimensions: '5x8 Feet',
+                Features: 'Non-slip Backing'
             }
         },
         { 
             id: 5,
-            name: 'Macramé Wall Art',
-            price: 45.00,
+            name: 'Brass Table Lamp',
+            price: 89.00,
             img: 'placeholder.jpeg',
             category: 'homeDecor',
             details: {
-                Material: 'Organic Cotton Cord',
-                Dimensions: '24" Diameter',
-                Style: 'Bohemian Design'
+                Material: 'Polished Brass',
+                Dimensions: '18" Height',
+                Features: 'Adjustable Brightness'
             }
         }
     ],
+
     artCollectibles: [
         { 
             id: 1,
@@ -69,311 +70,315 @@ const products = {
             img: 'placeholder.jpeg',
             category: 'artCollectibles',
             details: {
-                Medium: 'Oil on Canvas',
-                Size: '18" x 24"',
-                Signature: 'Signed by Artist'
+                Material: 'Oil on Canvas',
+                Dimensions: '24" x 36"',
+                Features: 'Signed by Artist'
             }
         },
         { 
             id: 2,
-            name: 'Bronze Figurine',
-            price: 120.00,
+            name: 'Bronze Sculpture',
+            price: 220.00,
             img: 'placeholder.jpeg',
             category: 'artCollectibles',
             details: {
-                Material: 'Lost-wax Casting',
-                Height: '8"',
-                Edition: 'Limited Edition'
+                Material: 'Lost-wax Bronze',
+                Dimensions: '12" Height',
+                Features: 'Limited Edition'
             }
         },
         { 
             id: 3,
-            name: 'Bronze Figurine',
-            price: 120.00,
+            name: 'Silk Screen Print',
+            price: 75.00,
             img: 'placeholder.jpeg',
             category: 'artCollectibles',
             details: {
-                Material: 'Lost-wax Casting',
-                Height: '8"',
-                Edition: 'Limited Edition'
+                Material: 'Archival Paper',
+                Dimensions: '18" x 24"',
+                Features: 'Numbered Series'
             }
         },
         { 
             id: 4,
-            name: 'Bronze Figurine',
-            price: 120.00,
+            name: 'Ceramic Art Bowl',
+            price: 65.00,
             img: 'placeholder.jpeg',
             category: 'artCollectibles',
             details: {
-                Material: 'Lost-wax Casting',
-                Height: '8"',
-                Edition: 'Limited Edition'
+                Material: 'Porcelain',
+                Dimensions: '9" Diameter',
+                Features: 'Gold Leaf Accents'
             }
         },
         { 
             id: 5,
-            name: 'Bronze Figurine',
-            price: 120.00,
+            name: 'Wood Carving Panel',
+            price: 95.00,
             img: 'placeholder.jpeg',
             category: 'artCollectibles',
             details: {
-                Material: 'Lost-wax Casting',
-                Height: '8"',
-                Edition: 'Limited Edition'
+                Material: 'Teak Wood',
+                Dimensions: '16" x 20"',
+                Features: 'Traditional Motif'
             }
         }
     ],
+
     accessories: [
         { 
             id: 1,
-            name: 'Silk Embroidered Scarf',
+            name: 'Silver Filigree Earrings',
+            price: 65.00,
+            img: 'placeholder.jpeg',
+            category: 'accessories',
+            details: {
+                Material: '925 Sterling Silver',
+                Dimensions: '2.5" Length',
+                Features: 'French Hook Closure'
+            }
+        },
+        { 
+            id: 2,
+            name: 'Tooled Leather Bag',
+            price: 150.00,
+            img: 'placeholder.jpeg',
+            category: 'accessories',
+            details: {
+                Material: 'Full-grain Leather',
+                Dimensions: '12" x 8"',
+                Features: 'Brass Hardware'
+            }
+        },
+        { 
+            id: 3,
+            name: 'Beaded Silk Scarf',
+            price: 45.00,
+            img: 'placeholder.jpeg',
+            category: 'accessories',
+            details: {
+                Material: 'Mulberry Silk',
+                Dimensions: '35" Square',
+                Features: 'Hand-rolled Edges'
+            }
+        },
+        { 
+            id: 4,
+            name: 'Hammered Cuff Bracelet',
             price: 55.00,
             img: 'placeholder.jpeg',
             category: 'accessories',
             details: {
-                Material: '100% Mulberry Silk',
-                Dimensions: '35" x 35"',
-                Colors: 'Hand-dyed Colors'
-            }
-        },
-        { 
-            id: 2,
-            name: 'Tooled Leather Journal',
-            price: 42.00,
-            img: 'placeholder.jpeg',
-            category: 'accessories',
-            details: {
-                Material: 'Vegetable-tanned Leather',
-                Size: 'A5',
-                Construction: 'Hand-stitched Binding'
-            }
-        },
-        { 
-            id: 3,
-            name: 'Tooled Leather Journal',
-            price: 42.00,
-            img: 'placeholder.jpeg',
-            category: 'accessories',
-            details: {
-                Material: 'Vegetable-tanned Leather',
-                Size: 'A5',
-                Construction: 'Hand-stitched Binding'
-            }
-        },
-        { 
-            id: 4,
-            name: 'Tooled Leather Journal',
-            price: 42.00,
-            img: 'placeholder.jpeg',
-            category: 'accessories',
-            details: {
-                Material: 'Vegetable-tanned Leather',
-                Size: 'A5',
-                Construction: 'Hand-stitched Binding'
+                Material: 'Copper Alloy',
+                Dimensions: '7" Circumference',
+                Features: 'Adjustable Fit'
             }
         },
         { 
             id: 5,
-            name: 'Tooled Leather Journal',
-            price: 42.00,
+            name: 'Enamel Pendant Necklace',
+            price: 38.00,
             img: 'placeholder.jpeg',
             category: 'accessories',
             details: {
-                Material: 'Vegetable-tanned Leather',
-                Size: 'A5',
-                Construction: 'Hand-stitched Binding'
+                Material: 'Sterling Silver',
+                Dimensions: '1.5" Pendant',
+                Features: '18" Chain Length'
             }
         }
     ],
+
     paperGoods: [
         { 
             id: 1,
-            name: 'Linen Wedding Invitations',
-            price: 35.00,
+            name: 'Letterpress Stationery Set',
+            price: 45.00,
             img: 'placeholder.jpeg',
             category: 'paperGoods',
             details: {
-                Material: '120gsm Linen Paper',
-                Customization: 'Custom Text Available',
-                Contents: 'Set of 10 with Envelopes'
+                Material: 'Cotton Paper',
+                Dimensions: 'A6 Size',
+                Features: 'Foiled Accents'
             }
         },
         { 
             id: 2,
-            name: 'Botanical Art Prints',
-            price: 25.00,
+            name: 'Watercolor Art Prints',
+            price: 28.00,
             img: 'placeholder.jpeg',
             category: 'paperGoods',
             details: {
-                Paper: 'Archival Matte',
-                Sizes: '8x10" to 16x20"',
-                Edition: 'Limited Edition Numbering'
+                Material: 'Archival Matte',
+                Dimensions: '11" x 14"',
+                Features: 'Botanical Series'
             }
         },
         { 
             id: 3,
-            name: 'Botanical Art Prints',
-            price: 25.00,
+            name: 'Leather-bound Journal',
+            price: 32.00,
             img: 'placeholder.jpeg',
             category: 'paperGoods',
             details: {
-                Paper: 'Archival Matte',
-                Sizes: '8x10" to 16x20"',
-                Edition: 'Limited Edition Numbering'
+                Material: 'Vegetable-tanned Leather',
+                Dimensions: '5" x 7"',
+                Features: 'Lined Pages'
             }
         },
         { 
             id: 4,
-            name: 'Botanical Art Prints',
-            price: 25.00,
+            name: 'Screen Printed Posters',
+            price: 22.00,
             img: 'placeholder.jpeg',
             category: 'paperGoods',
             details: {
-                Paper: 'Archival Matte',
-                Sizes: '8x10" to 16x20"',
-                Edition: 'Limited Edition Numbering'
+                Material: 'Recycled Paper',
+                Dimensions: '18" x 24"',
+                Features: 'Vintage Designs'
             }
         },
         { 
             id: 5,
-            name: 'Botanical Art Prints',
-            price: 25.00,
+            name: 'Embossed Notebook Set',
+            price: 18.00,
             img: 'placeholder.jpeg',
             category: 'paperGoods',
             details: {
-                Paper: 'Archival Matte',
-                Sizes: '8x10" to 16x20"',
-                Edition: 'Limited Edition Numbering'
+                Material: 'Kraft Paper',
+                Dimensions: '3.5" x 5"',
+                Features: '3-Pack Bundle'
             }
         }
     ],
+
     toys: [
         { 
             id: 1,
-            name: 'Montessori Sorting Toy',
+            name: 'Wooden Montessori Clock',
+            price: 38.00,
+            img: 'placeholder.jpeg',
+            category: 'toys',
+            details: {
+                Material: 'Beechwood',
+                Dimensions: '10" Diameter',
+                Features: 'Shape Sorting'
+            }
+        },
+        { 
+            id: 2,
+            name: 'Handmade Rag Doll',
+            price: 45.00,
+            img: 'placeholder.jpeg',
+            category: 'toys',
+            details: {
+                Material: 'Organic Cotton',
+                Dimensions: '15" Height',
+                Features: 'Machine Washable'
+            }
+        },
+        { 
+            id: 3,
+            name: 'Building Block Set',
+            price: 55.00,
+            img: 'placeholder.jpeg',
+            category: 'toys',
+            details: {
+                Material: 'Maple Wood',
+                Dimensions: '50 Piece Set',
+                Features: 'Non-toxic Paint'
+            }
+        },
+        { 
+            id: 4,
+            name: 'Felt Puzzle Mat',
+            price: 32.00,
+            img: 'placeholder.jpeg',
+            category: 'toys',
+            details: {
+                Material: 'Wool Felt',
+                Dimensions: '24" x 36"',
+                Features: 'Alphabet Designs'
+            }
+        },
+        { 
+            id: 5,
+            name: 'Knitted Animal Set',
             price: 28.00,
             img: 'placeholder.jpeg',
             category: 'toys',
             details: {
-                Material: 'Solid Beechwood',
-                Finish: 'Non-toxic',
-                Age: 'Ages 2+'
-            }
-        },
-        { 
-            id: 2,
-            name: 'Felt Farm Animal Set',
-            price: 38.00,
-            img: 'placeholder.jpeg',
-            category: 'toys',
-            details: {
-                Details: 'Hand-stitched',
-                Pieces: '10 Piece Set',
-                Care: 'Washable Materials'
-            }
-        },
-        { 
-            id: 3,
-            name: 'Felt Farm Animal Set',
-            price: 38.00,
-            img: 'placeholder.jpeg',
-            category: 'toys',
-            details: {
-                Details: 'Hand-stitched',
-                Pieces: '10 Piece Set',
-                Care: 'Washable Materials'
-            }
-        },
-        { 
-            id: 4,
-            name: 'Felt Farm Animal Set',
-            price: 38.00,
-            img: 'placeholder.jpeg',
-            category: 'toys',
-            details: {
-                Details: 'Hand-stitched',
-                Pieces: '10 Piece Set',
-                Care: 'Washable Materials'
-            }
-        },
-        { 
-            id: 5,
-            name: 'Felt Farm Animal Set',
-            price: 38.00,
-            img: 'placeholder.jpeg',
-            category: 'toys',
-            details: {
-                Details: 'Hand-stitched',
-                Pieces: '10 Piece Set',
-                Care: 'Washable Materials'
+                Material: 'Merino Wool',
+                Dimensions: '6-8" Tall',
+                Features: '5 Piece Collection'
             }
         }
     ],
+
     fiberCrafts: [
         { 
             id: 1,
-            name: 'Merino Wool Yarn',
-            price: 12.00,
+            name: 'Merino Wool Bundle',
+            price: 25.00,
             img: 'placeholder.jpeg',
             category: 'fiberCrafts',
             details: {
-                Weight: 'DK (50g skein)',
-                Dyes: 'Plant-based',
-                Colors: '15 Options'
+                Material: '100% Merino',
+                Dimensions: '100g Skeins',
+                Features: '3 Color Pack'
             }
         },
         { 
             id: 2,
-            name: 'Beginner Weaving Kit',
-            price: 55.00,
+            name: 'Embroidery Starter Kit',
+            price: 35.00,
             img: 'placeholder.jpeg',
             category: 'fiberCrafts',
             details: {
-                Includes: 'Loom + Tools',
-                Material: 'Organic Cotton',
-                Instructions: 'Instruction Booklet'
+                Material: 'Cotton Thread',
+                Dimensions: '8" Hoop',
+                Features: '50 Color Set'
             }
         },
         { 
             id: 3,
-            name: 'Beginner Weaving Kit',
-            price: 55.00,
+            name: 'Loom Weaving Set',
+            price: 75.00,
             img: 'placeholder.jpeg',
             category: 'fiberCrafts',
             details: {
-                Includes: 'Loom + Tools',
-                Material: 'Organic Cotton',
-                Instructions: 'Instruction Booklet'
+                Material: 'Pine Wood',
+                Dimensions: '12" Loom',
+                Features: 'Beginner Guide'
             }
         },
         { 
             id: 4,
-            name: 'Beginner Weaving Kit',
-            price: 55.00,
+            name: 'Knitting Needle Set',
+            price: 45.00,
             img: 'placeholder.jpeg',
             category: 'fiberCrafts',
             details: {
-                Includes: 'Loom + Tools',
-                Material: 'Organic Cotton',
-                Instructions: 'Instruction Booklet'
+                Material: 'Bamboo',
+                Dimensions: '10" Length',
+                Features: '5 Size Pack'
             }
         },
         { 
             id: 5,
-            name: 'Beginner Weaving Kit',
-            price: 55.00,
+            name: 'Crochet Pattern Book',
+            price: 18.00,
             img: 'placeholder.jpeg',
             category: 'fiberCrafts',
             details: {
-                Includes: 'Loom + Tools',
-                Material: 'Organic Cotton',
-                Instructions: 'Instruction Booklet'
+                Material: 'Recycled Paper',
+                Dimensions: '8.5" x 11"',
+                Features: '25 Projects'
             }
         }
     ]
 };
 
-let cart = [];
+window.cart = [];
 
 // Function to render products for new categories
 function renderProducts() {
@@ -415,6 +420,8 @@ function renderProducts() {
         });
     });
 }
+
+
 
 // Fixed addToCart function with quantity handling
 function addToCart(category, productId) {

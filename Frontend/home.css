@@ -16,7 +16,6 @@ body {
     padding: 0;
 }
 
-
 header {
     background-color: #006f69; 
     padding: 20px 50px;
@@ -157,7 +156,6 @@ nav a:hover {
 .section {
     margin-bottom: 2rem;
 }
-
 
 .section h2 {
     position: relative;
@@ -370,6 +368,51 @@ button {
     background-color: var(--accent-color);
     transform: scale(1.05);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* ===== See More Button Fixes ===== */
+.see-more-container {
+    text-align: center;
+    margin: 2rem 0 3rem;
+}
+
+.see-more-btn {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 12px 35px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-block;
+    box-shadow: 0 4px 15px rgba(255, 157, 0, 0.3);
+    border: 2px solid rgba(255,255,255,0.2);
+    font-size: 1.1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.see-more-btn:hover {
+    background-color: var(--accent-color);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 63, 106, 0.4);
+    border-color: transparent;
+}
+
+.see-more-btn::after {
+    margin-left: 8px;
+    transition: margin 0.3s ease;
+}
+
+.see-more-btn:hover::after {
+    margin-left: 12px;
+}
+
+@media (max-width: 768px) {
+    .see-more-btn {
+        padding: 10px 25px;
+        font-size: 1rem;
+    }
 }
 
 /* Product Controls Styling */
