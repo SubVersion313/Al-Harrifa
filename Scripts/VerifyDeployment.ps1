@@ -37,9 +37,9 @@ foreach ($file in $requiredFiles) {
 # 3. Check Frontend Files
 Write-Host "`n3. Verifying Frontend Files..." -ForegroundColor Yellow
 $frontendFiles = @(
-    "Frontend/index.html",
-    "Frontend/css/style.css",
-    "Frontend/js/main.js"
+    "Frontend/home.html",
+    "Frontend/home.css",
+    "Frontend/home.js"
 )
 
 foreach ($file in $frontendFiles) {
