@@ -2,7 +2,7 @@
 Write-Host "Starting deployment package preparation..." -ForegroundColor Green
 
 # Create deployment directory
-$deployDir = "..\Deployment"
+$deployDir = "Deployment"
 if (Test-Path $deployDir) {
     Remove-Item $deployDir -Recurse -Force
 }
@@ -21,8 +21,8 @@ $foldersToCopy = @(
 )
 
 foreach ($folder in $foldersToCopy) {
-    if (Test-Path "..\$folder") {
-        Copy-Item "..\$folder" -Destination $deployDir -Recurse
+    if (Test-Path $folder) {
+        Copy-Item $folder -Destination $deployDir -Recurse
     }
 }
 
@@ -36,8 +36,8 @@ $filesToCopy = @(
 )
 
 foreach ($file in $filesToCopy) {
-    if (Test-Path "..\$file") {
-        Copy-Item "..\$file" -Destination $deployDir
+    if (Test-Path $file) {
+        Copy-Item $file -Destination $deployDir
     }
 }
 
@@ -80,7 +80,7 @@ foreach ($dir in $dirsToRemove) {
 
 # Create ZIP file
 Write-Host "Creating deployment package..." -ForegroundColor Yellow
-$zipFile = "..\El-Harrifa-Deployment.zip"
+$zipFile = "El-Harrifa-Deployment.zip"
 if (Test-Path $zipFile) {
     Remove-Item $zipFile -Force
 }
