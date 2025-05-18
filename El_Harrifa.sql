@@ -1,90 +1,143 @@
-create database El_Harrifa;
+-- Create database
+IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'El_Harrifa')
+BEGIN
+    CREATE DATABASE El_Harrifa;
+END
+GO
 
-use El_Harrifa;
+USE El_Harrifa;
+GO
 
-CREATE TABLE Users (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    nameuser VARCHAR(100),
-    email VARCHAR(100) UNIQUE,
-    passworduser VARCHAR(255),
-    address TEXT,
-    is_admin BOOLEAN DEFAULT FALSE,
-    created_at DATETIME
-);
+-- Create Users table
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Users')
+BEGIN
+    CREATE TABLE Users (
+        id INT IDENTITY(1,1) PRIMARY KEY,
+        nameuser VARCHAR(100) NOT NULL,
+        email VARCHAR(100) NOT NULL UNIQUE,
+        passworduser VARCHAR(255) NOT NULL,
+        address VARCHAR(255),
+        is_admin BIT DEFAULT 0,
+        created_at DATETIME DEFAULT GETDATE()
+    );
+END
+GO
 
-CREATE TABLE Categories (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(100),
-    description TEXT
-);
+-- Create Categories table
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Categories')
+BEGIN
+    CREATE TABLE Categories (
+        id INT IDENTITY(1,1) PRIMARY KEY,
+        name VARCHAR(100) NOT NULL UNIQUE,
+        description TEXT
+    );
+END
+GO
 
-CREATE TABLE Products (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(100),
-    price DECIMAL(10, 2),
-    image_url TEXT,
-    category VARCHAR(100),
-    details JSON,
-    seller_id INT,
-    created_at DATETIME,
-    FOREIGN KEY (category) REFERENCES Categories(name),
-    FOREIGN KEY (seller_id) REFERENCES Users(id)
-);
+-- Create Products table
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Products')
+BEGIN
+    CREATE TABLE Products (
+        id INT IDENTITY(1,1) PRIMARY KEY,
+        name VARCHAR(100) NOT NULL,
+        price DECIMAL(10,2) NOT NULL,
+        image_url VARCHAR(255),
+        category VARCHAR(100),
+        details NVARCHAR(MAX),
+        seller_id INT,
+        created_at DATETIME DEFAULT GETDATE(),
+        FOREIGN KEY (category) REFERENCES Categories(name),
+        FOREIGN KEY (seller_id) REFERENCES Users(id)
+    );
+END
+GO
 
-CREATE TABLE Cart (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id INT,
-    product_id INT,
-    quantity INT,
-    FOREIGN KEY (user_id) REFERENCES Users(id),
-    FOREIGN KEY (product_id) REFERENCES Products(id)
-);
+-- Create Cart table
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Cart')
+BEGIN
+    CREATE TABLE Cart (
+        id INT IDENTITY(1,1) PRIMARY KEY,
+        user_id INT,
+        product_id INT,
+        quantity INT DEFAULT 1,
+        created_at DATETIME DEFAULT GETDATE(),
+        FOREIGN KEY (user_id) REFERENCES Users(id),
+        FOREIGN KEY (product_id) REFERENCES Products(id)
+    );
+END
+GO
 
-CREATE TABLE Reviews (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id INT,
-    product_id INT,
-    rating INT,
-    comment TEXT,
-    created_at DATETIME,
-    FOREIGN KEY (user_id) REFERENCES Users(id),
-    FOREIGN KEY (product_id) REFERENCES Products(id)
-);
+-- Create Reviews table
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Reviews')
+BEGIN
+    CREATE TABLE Reviews (
+        id INT IDENTITY(1,1) PRIMARY KEY,
+        user_id INT,
+        product_id INT,
+        rating INT CHECK (rating >= 1 AND rating <= 5),
+        comment TEXT,
+        created_at DATETIME DEFAULT GETDATE(),
+        FOREIGN KEY (user_id) REFERENCES Users(id),
+        FOREIGN KEY (product_id) REFERENCES Products(id)
+    );
+END
+GO
 
-CREATE TABLE Orders (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id INT,
-    status VARCHAR(50),
-    total_price DECIMAL(10, 2),
-    created_at DATETIME,
-    FOREIGN KEY (user_id) REFERENCES Users(id)
-);
+-- Create Orders table
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Orders')
+BEGIN
+    CREATE TABLE Orders (
+        id INT IDENTITY(1,1) PRIMARY KEY,
+        user_id INT,
+        total_amount DECIMAL(10,2) NOT NULL,
+        status VARCHAR(50) DEFAULT 'Pending',
+        created_at DATETIME DEFAULT GETDATE(),
+        FOREIGN KEY (user_id) REFERENCES Users(id)
+    );
+END
+GO
 
-CREATE TABLE OrderItems (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    order_id INT,
-    product_id INT,
-    quantity INT,
-    price DECIMAL(10, 2),
-    FOREIGN KEY (order_id) REFERENCES Orders(id),
-    FOREIGN KEY (product_id) REFERENCES Products(id)
-);
+-- Create OrderItems table
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'OrderItems')
+BEGIN
+    CREATE TABLE OrderItems (
+        id INT IDENTITY(1,1) PRIMARY KEY,
+        order_id INT,
+        product_id INT,
+        quantity INT NOT NULL,
+        price DECIMAL(10,2) NOT NULL,
+        FOREIGN KEY (order_id) REFERENCES Orders(id),
+        FOREIGN KEY (product_id) REFERENCES Products(id)
+    );
+END
+GO
 
-CREATE TABLE Shipping (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    order_id INT,
-    address TEXT,
-    shipped_at DATETIME,
-    delivered_at DATETIME,
-    status VARCHAR(50),
-    FOREIGN KEY (order_id) REFERENCES Orders(id)
-);
+-- Create Shipping table
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Shipping')
+BEGIN
+    CREATE TABLE Shipping (
+        id INT IDENTITY(1,1) PRIMARY KEY,
+        order_id INT,
+        address VARCHAR(255) NOT NULL,
+        status VARCHAR(50) DEFAULT 'Pending',
+        tracking_number VARCHAR(100),
+        created_at DATETIME DEFAULT GETDATE(),
+        FOREIGN KEY (order_id) REFERENCES Orders(id)
+    );
+END
+GO
 
-CREATE TABLE Payments (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    order_id INT,
-    method VARCHAR(50),
-    status VARCHAR(50),
-    paid_at DATETIME,
-    FOREIGN KEY (order_id) REFERENCES Orders(id)
-);
+-- Create Payments table
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Payments')
+BEGIN
+    CREATE TABLE Payments (
+        id INT IDENTITY(1,1) PRIMARY KEY,
+        order_id INT,
+        amount DECIMAL(10,2) NOT NULL,
+        payment_method VARCHAR(50) NOT NULL,
+        status VARCHAR(50) DEFAULT 'Pending',
+        created_at DATETIME DEFAULT GETDATE(),
+        FOREIGN KEY (order_id) REFERENCES Orders(id)
+    );
+END
+GO
