@@ -21,14 +21,13 @@ CREATE TABLE Categories (
 CREATE TABLE Products (
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(100),
-    description TEXT,
     price DECIMAL(10, 2),
-    stock INT,
-    category_id INT,
     image_url TEXT,
+    category VARCHAR(100),
+    details JSON,
     seller_id INT,
     created_at DATETIME,
-    FOREIGN KEY (category_id) REFERENCES Categories(id),
+    FOREIGN KEY (category) REFERENCES Categories(name),
     FOREIGN KEY (seller_id) REFERENCES Users(id)
 );
 

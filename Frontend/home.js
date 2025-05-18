@@ -64,7 +64,7 @@ window.products = {
 
     artCollectibles: [
         { 
-            id: 1,
+            id: 6,
             name: 'Oil Landscape Painting',
             price: 350.00,
             img: 'artCollectibles/Oil Landscape Painting.png',
@@ -76,7 +76,7 @@ window.products = {
             }
         },
         { 
-            id: 2,
+            id: 7,
             name: 'Bronze Sculpture',
             price: 220.00,
             img: 'artCollectibles/Bronze Sculpture.png',
@@ -88,7 +88,7 @@ window.products = {
             }
         },
         { 
-            id: 3,
+            id: 8,
             name: 'Silk Screen Print',
             price: 75.00,
             img: 'artCollectibles/Silk Screen Print.png',
@@ -100,7 +100,7 @@ window.products = {
             }
         },
         { 
-            id: 4,
+            id: 9,
             name: 'Ceramic Art Bowl',
             price: 65.00,
             img: 'artCollectibles/Ceramic Art Bowl.png',
@@ -112,7 +112,7 @@ window.products = {
             }
         },
         { 
-            id: 5,
+            id: 10,
             name: 'Wood Carving Panel',
             price: 95.00,
             img: 'artCollectibles/Wood Carving Panel.png',
@@ -127,7 +127,7 @@ window.products = {
 
     accessories: [
         { 
-            id: 1,
+            id: 11,
             name: 'Silver Filigree Earrings',
             price: 65.00,
             img: 'accessories/Silver Filigree Earrings.jpg',
@@ -139,7 +139,7 @@ window.products = {
             }
         },
         { 
-            id: 2,
+            id: 12,
             name: 'Tooled Leather Bag',
             price: 150.00,
             img: 'accessories/Tooled Leather Bag.jpg',
@@ -151,7 +151,7 @@ window.products = {
             }
         },
         { 
-            id: 3,
+            id: 13,
             name: 'Beaded Silk Scarf',
             price: 45.00,
             img: 'accessories/Beaded Silk Scarf.jpg',
@@ -163,7 +163,7 @@ window.products = {
             }
         },
         { 
-            id: 4,
+            id: 14,
             name: 'Hammered Cuff Bracelet',
             price: 55.00,
             img: 'accessories/Hammered Cuff Bracelet.jpg',
@@ -175,7 +175,7 @@ window.products = {
             }
         },
         { 
-            id: 5,
+            id: 15,
             name: 'Enamel Pendant Necklace',
             price: 38.00,
             img: 'accessories/Enamel Pendant Necklace.jpg',
@@ -190,7 +190,7 @@ window.products = {
 
     paperGoods: [
         { 
-            id: 1,
+            id: 16,
             name: 'Letterpress Stationery Set',
             price: 45.00,
             img: 'Paper Goods/Letterpress Stationery Set.jpg',
@@ -202,7 +202,7 @@ window.products = {
             }
         },
         { 
-            id: 2,
+            id: 17,
             name: 'Watercolor Art Prints',
             price: 28.00,
             img: 'Paper Goods/Watercolor Art Prints.jpg',
@@ -214,7 +214,7 @@ window.products = {
             }
         },
         { 
-            id: 3,
+            id: 18,
             name: 'Leather-bound Journal',
             price: 32.00,
             img: 'Paper Goods/Leather-bound Journal.jpg',
@@ -226,7 +226,7 @@ window.products = {
             }
         },
         { 
-            id: 4,
+            id: 19,
             name: 'Screen Printed Posters',
             price: 22.00,
             img: 'Paper Goods/Screen Printed Posters.jpg',
@@ -238,7 +238,7 @@ window.products = {
             }
         },
         { 
-            id: 5,
+            id: 20,
             name: 'Embossed Notebook Set',
             price: 18.00,
             img: 'Paper Goods/Embossed Notebook Set.jpg',
@@ -253,7 +253,7 @@ window.products = {
 
     toys: [
         { 
-            id: 1,
+            id: 21,
             name: 'Wooden Montessori Clock',
             price: 38.00,
             img: 'Handcrafted Toys/Wooden Montessori Clock.jpg',
@@ -265,7 +265,7 @@ window.products = {
             }
         },
         { 
-            id: 2,
+            id: 22,
             name: 'Handmade Rag Doll',
             price: 45.00,
             img: 'Handcrafted Toys/Handmade Rag Doll.jpg',
@@ -277,7 +277,7 @@ window.products = {
             }
         },
         { 
-            id: 3,
+            id: 23,
             name: 'Building Block Set',
             price: 55.00,
             img: 'Handcrafted Toys/Building Block Set.jpg',
@@ -289,7 +289,7 @@ window.products = {
             }
         },
         { 
-            id: 4,
+            id: 24,
             name: 'Felt Puzzle Mat',
             price: 32.00,
             img: 'Handcrafted Toys/Felt Puzzle Mat.jpg',
@@ -301,7 +301,7 @@ window.products = {
             }
         },
         { 
-            id: 5,
+            id: 25,
             name: 'Knitted Animal Set',
             price: 28.00,
             img: 'Handcrafted Toys/Knitted Animal Set.jpg',
@@ -316,7 +316,7 @@ window.products = {
 
     fiberCrafts: [
         { 
-            id: 1,
+            id: 26,
             name: 'Merino Wool Bundle',
             price: 25.00,
             img: 'Fiber Crafts/Merino Wool Bundle.jpg',
@@ -328,7 +328,7 @@ window.products = {
             }
         },
         { 
-            id: 2,
+            id: 27,
             name: 'Embroidery Starter Kit',
             price: 35.00,
             img: 'Fiber Crafts/Embroidery Starter Kit.jpg',
@@ -340,7 +340,7 @@ window.products = {
             }
         },
         { 
-            id: 3,
+            id: 28,
             name: 'Loom Weaving Set',
             price: 75.00,
             img: 'Fiber Crafts/Loom Weaving Set.jpg',
@@ -352,7 +352,7 @@ window.products = {
             }
         },
         { 
-            id: 4,
+            id: 29,
             name: 'Knitting Needle Set',
             price: 45.00,
             img: 'Fiber Crafts/Knitting Needle Set.jpg',
@@ -364,7 +364,7 @@ window.products = {
             }
         },
         { 
-            id: 5,
+            id: 30,
             name: 'Crochet Pattern Book',
             price: 18.00,
             img: 'Fiber Crafts/Crochet Pattern Book.jpg',
