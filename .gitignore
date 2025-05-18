@@ -1,0 +1,38 @@
+# .NET Core
+bin/
+obj/
+*.user
+*.userosscache
+*.suo
+*.userprefs
+.vs/
+.vscode/
+
+# Logs
+logs/
+*.log
+
+# Database
+*.mdf
+*.ldf
+*.ndf
+
+# Environment files
+appsettings.Development.json
+appsettings.Production.json
+
+# Frontend
+Frontend/optimized_images/
+Frontend/image.rar
+Frontend/apple.zip
+Frontend/*.zip
+Frontend/*.rar
+
+# IDE
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db 
