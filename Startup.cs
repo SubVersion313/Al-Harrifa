@@ -5,6 +5,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.RateLimiting;
 using System.Threading.RateLimiting;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.ResponseCompression;
 
 public class Startup
 {
@@ -17,6 +20,24 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
+        // Add MySQL
+        services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseMySql(
+                Configuration.GetConnectionString("DefaultConnection"),
+                ServerVersion.AutoDetect(Configuration.GetConnectionString("DefaultConnection")),
+                mySqlOptions => mySqlOptions
+                    .EnableRetryOnFailure(
+                        maxRetryCount: 10,
+                        maxRetryDelay: TimeSpan.FromSeconds(30),
+                        errorNumbersToAdd: null)
+            ));
+
+        // Configure file upload limits
+        services.Configure<FormOptions>(options =>
+        {
+            options.MultipartBodyLengthLimit = Configuration.GetValue<long>("FileUpload:MaxFileSize");
+        });
+
         // Add rate limiting
         services.AddRateLimiter(options =>
         {
@@ -43,7 +64,7 @@ public class Startup
             options.AddPolicy("DefaultPolicy",
                 builder =>
                 {
-                    builder.WithOrigins(Configuration["AllowedOrigins"])
+                    builder.WithOrigins(Configuration.GetSection("AllowedOrigins").Get<string[]>())
                            .AllowAnyMethod()
                            .AllowAnyHeader()
                            .AllowCredentials();
@@ -58,12 +79,19 @@ public class Startup
             options.Providers.Add<GzipCompressionProvider>();
         });
 
+        services.Configure<BrotliCompressionProviderOptions>(options =>
+        {
+            options.Level = System.IO.Compression.CompressionLevel.Fastest;
+        });
+
+        services.Configure<GzipCompressionProviderOptions>(options =>
+        {
+            options.Level = System.IO.Compression.CompressionLevel.Fastest;
+        });
+
         services.AddResponseCaching();
 
-        // Existing services
-        services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-        
+        // Configure authentication
         services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(options =>
             {
@@ -72,7 +100,7 @@ public class Startup
                 options.Cookie.HttpOnly = true;
                 options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                 options.Cookie.SameSite = SameSiteMode.Strict;
-                options.ExpireTimeSpan = TimeSpan.FromHours(1);
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(Configuration.GetValue<int>("Security:SessionTimeout"));
                 options.SlidingExpiration = true;
             });
 
@@ -91,14 +119,39 @@ public class Startup
             app.UseHsts();
         }
 
+        // Configure static files
+        app.UseStaticFiles(new StaticFileOptions
+        {
+            OnPrepareResponse = ctx =>
+            {
+                ctx.Context.Response.Headers.Append(
+                    "Cache-Control", $"public,max-age={Configuration.GetValue<int>("Caching:StaticFiles:MaxAge")}");
+            }
+        });
+
         app.UseHttpsRedirection();
-        app.UseStaticFiles();
         app.UseRouting();
         
         app.UseCors("DefaultPolicy");
         app.UseResponseCompression();
         app.UseResponseCaching();
         app.UseRateLimiter();
+
+        // Add security headers
+        app.Use(async (context, next) =>
+        {
+            context.Response.Headers.Add("X-Content-Type-Options", "nosniff");
+            context.Response.Headers.Add("X-Frame-Options", "DENY");
+            context.Response.Headers.Add("X-XSS-Protection", "1; mode=block");
+            context.Response.Headers.Add("Referrer-Policy", "strict-origin-when-cross-origin");
+            context.Response.Headers.Add("Content-Security-Policy", 
+                "default-src 'self'; " +
+                "script-src 'self' 'unsafe-inline' 'unsafe-eval'; " +
+                "style-src 'self' 'unsafe-inline'; " +
+                "img-src 'self' data: https:; " +
+                "font-src 'self';");
+            await next();
+        });
 
         app.UseAuthentication();
         app.UseAuthorization();
