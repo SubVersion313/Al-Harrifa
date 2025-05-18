@@ -4,7 +4,7 @@ window.products = {
             id: 1,
             name: 'Artisan Ceramic Vase',
             price: 68.00,
-            img: 'placeholder.jpeg',
+            img: 'Home Decor/Artisan Ceramic Vase.png',
             category: 'homeDecor',
             details: {
                 Material: 'Stoneware Clay',
@@ -16,7 +16,7 @@ window.products = {
             id: 2,
             name: 'Macramé Wall Hanging',
             price: 85.00,
-            img: 'placeholder.jpeg',
+            img: 'Home Decor/Macramé Wall Hanging.png',
             category: 'homeDecor',
             details: {
                 Material: 'Organic Cotton Cord',
@@ -28,7 +28,7 @@ window.products = {
             id: 3,
             name: 'Geometric Cement Planter',
             price: 45.00,
-            img: 'placeholder.jpeg',
+            img: 'Home Decor/Geometric Cement Planter.png',
             category: 'homeDecor',
             details: {
                 Material: 'Concrete Mix',
@@ -40,7 +40,7 @@ window.products = {
             id: 4,
             name: 'Handwoven Jute Rug',
             price: 120.00,
-            img: 'placeholder.jpeg',
+            img: 'Home Decor/Handwoven Jute Rug.png',
             category: 'homeDecor',
             details: {
                 Material: 'Natural Jute',
@@ -52,7 +52,7 @@ window.products = {
             id: 5,
             name: 'Brass Table Lamp',
             price: 89.00,
-            img: 'placeholder.jpeg',
+            img: 'Home Decor/Brass Table Lamp.png',
             category: 'homeDecor',
             details: {
                 Material: 'Polished Brass',
@@ -67,7 +67,7 @@ window.products = {
             id: 1,
             name: 'Oil Landscape Painting',
             price: 350.00,
-            img: 'placeholder.jpeg',
+            img: 'artCollectibles/Oil Landscape Painting.png',
             category: 'artCollectibles',
             details: {
                 Material: 'Oil on Canvas',
@@ -79,7 +79,7 @@ window.products = {
             id: 2,
             name: 'Bronze Sculpture',
             price: 220.00,
-            img: 'placeholder.jpeg',
+            img: 'artCollectibles/Bronze Sculpture.png',
             category: 'artCollectibles',
             details: {
                 Material: 'Lost-wax Bronze',
@@ -91,7 +91,7 @@ window.products = {
             id: 3,
             name: 'Silk Screen Print',
             price: 75.00,
-            img: 'placeholder.jpeg',
+            img: 'artCollectibles/Silk Screen Print.png',
             category: 'artCollectibles',
             details: {
                 Material: 'Archival Paper',
@@ -103,7 +103,7 @@ window.products = {
             id: 4,
             name: 'Ceramic Art Bowl',
             price: 65.00,
-            img: 'placeholder.jpeg',
+            img: 'artCollectibles/Ceramic Art Bowl.png',
             category: 'artCollectibles',
             details: {
                 Material: 'Porcelain',
@@ -115,7 +115,7 @@ window.products = {
             id: 5,
             name: 'Wood Carving Panel',
             price: 95.00,
-            img: 'placeholder.jpeg',
+            img: 'artCollectibles/Wood Carving Panel.png',
             category: 'artCollectibles',
             details: {
                 Material: 'Teak Wood',
@@ -130,7 +130,7 @@ window.products = {
             id: 1,
             name: 'Silver Filigree Earrings',
             price: 65.00,
-            img: 'placeholder.jpeg',
+            img: 'accessories/Silver Filigree Earrings.jpg',
             category: 'accessories',
             details: {
                 Material: '925 Sterling Silver',
@@ -142,7 +142,7 @@ window.products = {
             id: 2,
             name: 'Tooled Leather Bag',
             price: 150.00,
-            img: 'placeholder.jpeg',
+            img: 'accessories/Tooled Leather Bag.jpg',
             category: 'accessories',
             details: {
                 Material: 'Full-grain Leather',
@@ -154,7 +154,7 @@ window.products = {
             id: 3,
             name: 'Beaded Silk Scarf',
             price: 45.00,
-            img: 'placeholder.jpeg',
+            img: 'accessories/Beaded Silk Scarf.jpg',
             category: 'accessories',
             details: {
                 Material: 'Mulberry Silk',
@@ -166,7 +166,7 @@ window.products = {
             id: 4,
             name: 'Hammered Cuff Bracelet',
             price: 55.00,
-            img: 'placeholder.jpeg',
+            img: 'accessories/Hammered Cuff Bracelet.jpg',
             category: 'accessories',
             details: {
                 Material: 'Copper Alloy',
@@ -178,7 +178,7 @@ window.products = {
             id: 5,
             name: 'Enamel Pendant Necklace',
             price: 38.00,
-            img: 'placeholder.jpeg',
+            img: 'accessories/Enamel Pendant Necklace.jpg',
             category: 'accessories',
             details: {
                 Material: 'Sterling Silver',
@@ -193,7 +193,7 @@ window.products = {
             id: 1,
             name: 'Letterpress Stationery Set',
             price: 45.00,
-            img: 'placeholder.jpeg',
+            img: 'Paper Goods/Letterpress Stationery Set.jpg',
             category: 'paperGoods',
             details: {
                 Material: 'Cotton Paper',
@@ -205,7 +205,7 @@ window.products = {
             id: 2,
             name: 'Watercolor Art Prints',
             price: 28.00,
-            img: 'placeholder.jpeg',
+            img: 'Paper Goods/Watercolor Art Prints.jpg',
             category: 'paperGoods',
             details: {
                 Material: 'Archival Matte',
@@ -217,7 +217,7 @@ window.products = {
             id: 3,
             name: 'Leather-bound Journal',
             price: 32.00,
-            img: 'placeholder.jpeg',
+            img: 'Paper Goods/Leather-bound Journal.jpg',
             category: 'paperGoods',
             details: {
                 Material: 'Vegetable-tanned Leather',
@@ -229,7 +229,7 @@ window.products = {
             id: 4,
             name: 'Screen Printed Posters',
             price: 22.00,
-            img: 'placeholder.jpeg',
+            img: 'Paper Goods/Screen Printed Posters.jpg',
             category: 'paperGoods',
             details: {
                 Material: 'Recycled Paper',
@@ -241,7 +241,7 @@ window.products = {
             id: 5,
             name: 'Embossed Notebook Set',
             price: 18.00,
-            img: 'placeholder.jpeg',
+            img: 'Paper Goods/Embossed Notebook Set.jpg',
             category: 'paperGoods',
             details: {
                 Material: 'Kraft Paper',
@@ -256,7 +256,7 @@ window.products = {
             id: 1,
             name: 'Wooden Montessori Clock',
             price: 38.00,
-            img: 'placeholder.jpeg',
+            img: 'Handcrafted Toys/Wooden Montessori Clock.jpg',
             category: 'toys',
             details: {
                 Material: 'Beechwood',
@@ -268,7 +268,7 @@ window.products = {
             id: 2,
             name: 'Handmade Rag Doll',
             price: 45.00,
-            img: 'placeholder.jpeg',
+            img: 'Handcrafted Toys/Handmade Rag Doll.jpg',
             category: 'toys',
             details: {
                 Material: 'Organic Cotton',
@@ -280,7 +280,7 @@ window.products = {
             id: 3,
             name: 'Building Block Set',
             price: 55.00,
-            img: 'placeholder.jpeg',
+            img: 'Handcrafted Toys/Building Block Set.jpg',
             category: 'toys',
             details: {
                 Material: 'Maple Wood',
@@ -292,7 +292,7 @@ window.products = {
             id: 4,
             name: 'Felt Puzzle Mat',
             price: 32.00,
-            img: 'placeholder.jpeg',
+            img: 'Handcrafted Toys/Felt Puzzle Mat.jpg',
             category: 'toys',
             details: {
                 Material: 'Wool Felt',
@@ -304,7 +304,7 @@ window.products = {
             id: 5,
             name: 'Knitted Animal Set',
             price: 28.00,
-            img: 'placeholder.jpeg',
+            img: 'Handcrafted Toys/Knitted Animal Set.jpg',
             category: 'toys',
             details: {
                 Material: 'Merino Wool',
@@ -319,7 +319,7 @@ window.products = {
             id: 1,
             name: 'Merino Wool Bundle',
             price: 25.00,
-            img: 'placeholder.jpeg',
+            img: 'Fiber Crafts/Merino Wool Bundle.jpg',
             category: 'fiberCrafts',
             details: {
                 Material: '100% Merino',
@@ -331,7 +331,7 @@ window.products = {
             id: 2,
             name: 'Embroidery Starter Kit',
             price: 35.00,
-            img: 'placeholder.jpeg',
+            img: 'Fiber Crafts/Embroidery Starter Kit.jpg',
             category: 'fiberCrafts',
             details: {
                 Material: 'Cotton Thread',
@@ -343,7 +343,7 @@ window.products = {
             id: 3,
             name: 'Loom Weaving Set',
             price: 75.00,
-            img: 'placeholder.jpeg',
+            img: 'Fiber Crafts/Loom Weaving Set.jpg',
             category: 'fiberCrafts',
             details: {
                 Material: 'Pine Wood',
@@ -355,7 +355,7 @@ window.products = {
             id: 4,
             name: 'Knitting Needle Set',
             price: 45.00,
-            img: 'placeholder.jpeg',
+            img: 'Fiber Crafts/Knitting Needle Set.jpg',
             category: 'fiberCrafts',
             details: {
                 Material: 'Bamboo',
@@ -367,7 +367,7 @@ window.products = {
             id: 5,
             name: 'Crochet Pattern Book',
             price: 18.00,
-            img: 'placeholder.jpeg',
+            img: 'Fiber Crafts/Crochet Pattern Book.jpg',
             category: 'fiberCrafts',
             details: {
                 Material: 'Recycled Paper',
