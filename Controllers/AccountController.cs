@@ -5,11 +5,19 @@ using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Linq;
+using Microsoft.Extensions.Logging;
+using System;
 
 public class AccountController : Controller
 {
+    private readonly ILogger<AccountController> _logger;
     private readonly ApplicationDbContext _context;
-    public AccountController(ApplicationDbContext context) { _context = context; }
+
+    public AccountController(ILogger<AccountController> logger, ApplicationDbContext context)
+    {
+        _logger = logger;
+        _context = context;
+    }
 
     [HttpGet]
     [AllowAnonymous]
@@ -18,29 +26,46 @@ public class AccountController : Controller
     [HttpPost]
     [AllowAnonymous]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Login(string email, string password)
+    public async Task<IActionResult> Login(LoginViewModel model)
     {
-        if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
+        try
         {
-            ModelState.AddModelError("", "Email and password are required.");
-            return View();
+            if (!ModelState.IsValid)
+            {
+                _logger.LogWarning("Invalid login attempt for user {Email}", model.Email);
+                return View(model);
+            }
+
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
+            if (user == null || !user.VerifyPassword(model.Password))
+            {
+                _logger.LogWarning("Failed login attempt for user {Email}", model.Email);
+                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                return View(model);
+            }
+
+            // Create authentication cookie
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, user.NameUser),
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.Role, user.IsAdmin ? "Admin" : "User")
+            };
+
+            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var principal = new ClaimsPrincipal(identity);
+
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
+            _logger.LogInformation("User {Email} logged in successfully", user.Email);
+            return RedirectToAction("Index", "Home");
         }
-        var user = _context.Users.FirstOrDefault(u => u.Email == email);
-        if (user == null || !PasswordHasher.Verify(password, user.PasswordUser))
+        catch (Exception ex)
         {
-            ModelState.AddModelError("", "Invalid login.");
-            return View();
+            _logger.LogError(ex, "Error during login for user {Email}", model.Email);
+            ModelState.AddModelError(string.Empty, "An error occurred during login. Please try again.");
+            return View(model);
         }
-        var claims = new List<Claim>
-        {
-            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new Claim(ClaimTypes.Email, user.Email),
-            new Claim(ClaimTypes.Name, user.NameUser),
-            new Claim(ClaimTypes.Role, user.IsAdmin ? "Admin" : "User")
-        };
-        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-        return RedirectToAction("Index", "Home");
     }
 
     [HttpGet]
@@ -50,35 +75,59 @@ public class AccountController : Controller
     [HttpPost]
     [AllowAnonymous]
     [ValidateAntiForgeryToken]
-    public IActionResult Register(User model, string PasswordConfirm)
+    public async Task<IActionResult> Register(RegisterViewModel model)
     {
-        if (!ModelState.IsValid)
-            return View(model);
-
-        if (_context.Users.Any(u => u.Email == model.Email))
+        try
         {
-            ModelState.AddModelError("", "Email already in use.");
+            if (!ModelState.IsValid)
+            {
+                _logger.LogWarning("Invalid registration attempt for user {Email}", model.Email);
+                return View(model);
+            }
+
+            if (await _context.Users.AnyAsync(u => u.Email == model.Email))
+            {
+                ModelState.AddModelError("Email", "Email already exists.");
+                return View(model);
+            }
+
+            var user = new User
+            {
+                NameUser = model.Name,
+                Email = model.Email,
+                Address = model.Address,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            user.SetPassword(model.Password);
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+
+            _logger.LogInformation("New user registered: {Email}", user.Email);
+            return RedirectToAction("Login");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error during registration for user {Email}", model.Email);
+            ModelState.AddModelError(string.Empty, "An error occurred during registration. Please try again.");
             return View(model);
         }
-        if (model.PasswordUser != PasswordConfirm)
-        {
-            ModelState.AddModelError("", "Passwords do not match.");
-            return View(model);
-        }
-
-        model.PasswordUser = PasswordHasher.Hash(model.PasswordUser);
-        model.CreatedAt = DateTime.Now;
-        _context.Users.Add(model);
-        _context.SaveChanges();
-        TempData["RegisterSuccess"] = "Registration successful! Please log in.";
-        return RedirectToAction("Login");
     }
 
     [Authorize]
     public async Task<IActionResult> Logout()
     {
-        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-        return RedirectToAction("Index", "Home");
+        try
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            _logger.LogInformation("User logged out");
+            return RedirectToAction("Index", "Home");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error during logout");
+            return RedirectToAction("Index", "Home");
+        }
     }
 
     [Authorize]
