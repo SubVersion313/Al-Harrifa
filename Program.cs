@@ -36,7 +36,7 @@ var app = builder.Build();
 // Configure error handling
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseExceptionHandler("/Index/Error");
     app.UseHsts();
 }
 
@@ -64,6 +64,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Index}/{action=Index}/{id?}");
 
 app.Run();

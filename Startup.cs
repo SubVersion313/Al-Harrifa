@@ -115,7 +115,7 @@ public class Startup
         }
         else
         {
-            app.UseExceptionHandler("/Home/Error");
+            app.UseExceptionHandler("/Index/Error");
             app.UseHsts();
         }
 
@@ -160,7 +160,7 @@ public class Startup
         {
             endpoints.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Index}/{action=Index}/{id?}");
         });
     }
 }

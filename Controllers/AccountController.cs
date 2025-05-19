@@ -58,7 +58,7 @@ public class AccountController : Controller
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
             _logger.LogInformation("User {Email} logged in successfully", user.Email);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Index");
         }
         catch (Exception ex)
         {
@@ -121,12 +121,12 @@ public class AccountController : Controller
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             _logger.LogInformation("User logged out");
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Index");
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error during logout");
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Index");
         }
     }
 
