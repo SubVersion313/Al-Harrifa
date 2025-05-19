@@ -1,4 +1,4 @@
-@model User
+@model AlHarrifa.Models.RegisterViewModel
 @{
     ViewBag.Title = "Register";
 }
@@ -7,13 +7,13 @@
 <form method="post" asp-action="Register">
     @Html.AntiForgeryToken()
     <label>Name:<br />
-        <input type="text" asp-for="NameUser" required />
+        <input type="text" asp-for="Name" required />
     </label><br />
     <label>Email:<br />
         <input type="email" asp-for="Email" required />
     </label><br />
     <label>Password:<br />
-        <input type="password" asp-for="PasswordUser" required />
+        <input type="password" asp-for="Password" required />
     </label><br />
     <label>Confirm Password:<br />
         <input type="password" name="PasswordConfirm" required />

@@ -1,7 +1,7 @@
-@model Product
+@model AlHarrifa.Models.Product
 @{
     ViewBag.Title = "Edit Product";
-    var categories = ViewBag.Categories as List<Category>;
+    var categories = ViewBag.Categories as List<AlHarrifa.Models.Category>;
 }
 <h2>Edit Product</h2>
 <form method="post" asp-action="Edit">
@@ -13,7 +13,7 @@
         <select name="Category" required>
             @foreach (var cat in categories)
             {
-                <option value="@cat.Name" @(cat.Name == Model.Category ? "selected" : "")>@cat.Name</option>
+                <option value="@cat.Name" selected="@(cat.Name == Model.Category ? "selected" : null)">@cat.Name</option>
             }
         </select>
     </label><br />

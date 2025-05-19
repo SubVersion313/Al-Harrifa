@@ -8,6 +8,9 @@ using System.Threading.RateLimiting;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.ResponseCompression;
+using AlHarrifa.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 public class Startup
 {
@@ -158,6 +161,7 @@ public class Startup
 
         app.UseEndpoints(endpoints =>
         {
+            endpoints.MapControllers();
             endpoints.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Index}/{action=Index}/{id?}");

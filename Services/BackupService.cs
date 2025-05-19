@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
+using AlHarrifa.Helpers;
 
 namespace El_Harrifa.Services
 {

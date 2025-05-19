@@ -1,49 +1,54 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using System.Linq;
+using AlHarrifa.Models;
+using AlHarrifa.Data;
 
-[Authorize(Roles = "Admin")]
-public class CategoriesController : Controller
+namespace AlHarrifa.Controllers
 {
-    private readonly ApplicationDbContext _context;
-    public CategoriesController(ApplicationDbContext context) { _context = context; }
-
-    public IActionResult Index()
+    [Authorize(Roles = "Admin")]
+    public class CategoriesController : Controller
     {
-        return View(_context.Categories.ToList());
-    }
+        private readonly ApplicationDbContext _context;
+        public CategoriesController(ApplicationDbContext context) { _context = context; }
 
-    public IActionResult Create() => View();
+        public IActionResult Index()
+        {
+            return View(_context.Categories.ToList());
+        }
 
-    [HttpPost]
-    public IActionResult Create(Category category)
-    {
-        _context.Categories.Add(category);
-        _context.SaveChanges();
-        return RedirectToAction("Index");
-    }
+        public IActionResult Create() => View();
 
-    public IActionResult Edit(int id)
-    {
-        var category = _context.Categories.FirstOrDefault(c => c.Id == id);
-        if (category == null) return NotFound();
-        return View(category);
-    }
+        [HttpPost]
+        public IActionResult Create(Category category)
+        {
+            _context.Categories.Add(category);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
-    [HttpPost]
-    public IActionResult Edit(Category category)
-    {
-        _context.Categories.Update(category);
-        _context.SaveChanges();
-        return RedirectToAction("Index");
-    }
+        public IActionResult Edit(int id)
+        {
+            var category = _context.Categories.FirstOrDefault(c => c.Id == id);
+            if (category == null) return NotFound();
+            return View(category);
+        }
 
-    public IActionResult Delete(int id)
-    {
-        var category = _context.Categories.FirstOrDefault(c => c.Id == id);
-        if (category == null) return NotFound();
-        _context.Categories.Remove(category);
-        _context.SaveChanges();
-        return RedirectToAction("Index");
+        [HttpPost]
+        public IActionResult Edit(Category category)
+        {
+            _context.Categories.Update(category);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Delete(int id)
+        {
+            var category = _context.Categories.FirstOrDefault(c => c.Id == id);
+            if (category == null) return NotFound();
+            _context.Categories.Remove(category);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }

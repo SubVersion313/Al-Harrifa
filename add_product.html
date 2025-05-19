@@ -8,6 +8,23 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
     <link href="index.css" rel="stylesheet">
+    <style>
+        .preview-image {
+            max-width: 200px;
+            max-height: 200px;
+            margin: 10px 0;
+            display: none;
+        }
+        .error {
+            color: #dc3545;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+        .loading {
+            display: none;
+            margin: 10px 0;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -26,12 +43,21 @@
     <div class="container" style="max-width: 600px; margin: 2rem auto;">
         <h1 style="color: var(--primary-color); font-family: 'Poppins', sans-serif;">Add New Product</h1>
         <form id="add-product-form" style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px var(--shadow-color); padding: 2rem;">
+            <div class="form-group">
             <label>Name:<br>
                 <input class="input" type="text" name="name" required style="width:100%;margin-bottom:1rem;">
             </label>
+                <div class="error" id="name-error"></div>
+            </div>
+
+            <div class="form-group">
             <label>Price:<br>
-                <input class="input" type="number" name="price" step="0.01" required style="width:100%;margin-bottom:1rem;">
+                    <input class="input" type="number" name="price" step="0.01" min="0.01" required style="width:100%;margin-bottom:1rem;">
             </label>
+                <div class="error" id="price-error"></div>
+            </div>
+
+            <div class="form-group">
             <label>Category:<br>
                 <select class="input" name="category" required style="width:100%;margin-bottom:1rem;">
                     <option value="">Select Category</option>
@@ -43,12 +69,25 @@
                     <option value="fiberCrafts">Fiber Crafts</option>
                 </select>
             </label>
-            <label>Image URL:<br>
-                <input class="input" type="text" name="img" placeholder="image.jpg" required style="width:100%;margin-bottom:1rem;">
+                <div class="error" id="category-error"></div>
+            </div>
+
+            <div class="form-group">
+                <label>Product Image:<br>
+                    <input class="input" type="file" name="image" accept="image/*" required style="width:100%;margin-bottom:1rem;">
             </label>
+                <img id="image-preview" class="preview-image">
+                <div class="error" id="image-error"></div>
+            </div>
+
+            <div class="form-group">
             <label>Details (JSON):<br>
                 <textarea class="input" name="details" placeholder='{"Material":"Cotton", "Dimensions":"A4", "Features":"Handmade"}' required style="width:100%;margin-bottom:1rem;"></textarea>
             </label>
+                <div class="error" id="details-error"></div>
+            </div>
+
+            <div class="loading" id="loading">Uploading...</div>
             <button class="btn" type="submit" style="width:100%;background:var(--primary-color);color:#fff;">Add Product</button>
         </form>
         <div id="add-product-message" style="margin-top:1rem;color:var(--secondary-color);"></div>
@@ -57,30 +96,142 @@
         <p>&copy; 2025 SC AL-HARRIFA STORE. All rights reserved.</p>
     </footer>
     <script>
-    // On submit, add product to window.products (simulate)
-    document.getElementById('add-product-form').onsubmit = function(e) {
-        e.preventDefault();
-        const fd = new FormData(this);
-        let detailsObj;
-        try {
-            detailsObj = JSON.parse(fd.get('details'));
-        } catch {
-            document.getElementById('add-product-message').textContent = "Invalid JSON in Details!";
-            return;
+    // Image preview
+    document.querySelector('input[name="image"]').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const preview = document.getElementById('image-preview');
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            }
+            reader.readAsDataURL(file);
         }
+    });
+
+    // Form validation
+    function validateForm() {
+        let isValid = true;
+        const form = document.getElementById('add-product-form');
+        
+        // Name validation
+        const name = form.querySelector('[name="name"]').value.trim();
+        if (name.length < 3) {
+            document.getElementById('name-error').textContent = 'Name must be at least 3 characters long';
+            isValid = false;
+        } else {
+            document.getElementById('name-error').textContent = '';
+        }
+
+        // Price validation
+        const price = parseFloat(form.querySelector('[name="price"]').value);
+        if (isNaN(price) || price <= 0) {
+            document.getElementById('price-error').textContent = 'Please enter a valid price';
+            isValid = false;
+        } else {
+            document.getElementById('price-error').textContent = '';
+        }
+
+        // Category validation
+        const category = form.querySelector('[name="category"]').value;
+        if (!category) {
+            document.getElementById('category-error').textContent = 'Please select a category';
+            isValid = false;
+        } else {
+            document.getElementById('category-error').textContent = '';
+        }
+
+        // Image validation
+        const image = form.querySelector('[name="image"]').files[0];
+        if (!image) {
+            document.getElementById('image-error').textContent = 'Please select an image';
+            isValid = false;
+        } else {
+            const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+            if (!allowedTypes.includes(image.type)) {
+                document.getElementById('image-error').textContent = 'Please select a valid image file (JPEG, PNG, or GIF)';
+                isValid = false;
+            } else {
+                document.getElementById('image-error').textContent = '';
+            }
+        }
+
+        // Details validation
+        const details = form.querySelector('[name="details"]').value.trim();
+        try {
+            JSON.parse(details);
+            document.getElementById('details-error').textContent = '';
+        } catch {
+            document.getElementById('details-error').textContent = 'Please enter valid JSON';
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+    // Form submission
+    document.getElementById('add-product-form').onsubmit = async function(e) {
+        e.preventDefault();
+        
+        if (!validateForm()) return;
+
+        const form = e.target;
+        const loading = document.getElementById('loading');
+        const message = document.getElementById('add-product-message');
+        
+        try {
+            loading.style.display = 'block';
+            message.textContent = '';
+
+            // First upload the image
+            const imageFile = form.querySelector('[name="image"]').files[0];
+            const imageFormData = new FormData();
+            imageFormData.append('file', imageFile);
+
+            const imageResponse = await fetch('/api/products/upload-image', {
+                method: 'POST',
+                body: imageFormData
+            });
+
+            if (!imageResponse.ok) {
+                throw new Error('Failed to upload image');
+            }
+
+            const { url: imageUrl } = await imageResponse.json();
+
+            // Then create the product
+            const detailsObj = JSON.parse(form.querySelector('[name="details"]').value);
         const product = {
-            id: Date.now(),
-            name: fd.get('name'),
-            price: parseFloat(fd.get('price')),
-            category: fd.get('category'),
-            img: fd.get('img'),
-            details: detailsObj
-        };
-        if (!window.products) window.products = {};
-        if (!window.products[product.category]) window.products[product.category] = [];
-        window.products[product.category].push(product);
-        document.getElementById('add-product-message').textContent = "Product added! (Demo only - will not persist after reload)";
-        this.reset();
+                name: form.querySelector('[name="name"]').value.trim(),
+                price: parseFloat(form.querySelector('[name="price"]').value),
+                category: form.querySelector('[name="category"]').value,
+                imageUrl: imageUrl,
+                details: JSON.stringify(detailsObj)
+            };
+
+            const response = await fetch('/api/products', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('input[name="__RequestVerificationToken"]').value
+                },
+                body: JSON.stringify(product)
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to add product');
+            }
+
+            message.textContent = "Product added successfully!";
+            form.reset();
+            document.getElementById('image-preview').style.display = 'none';
+        } catch (error) {
+            console.error('Error:', error);
+            message.textContent = error.message || "Failed to add product. Please try again.";
+        } finally {
+            loading.style.display = 'none';
+        }
     };
     </script>
 </body>

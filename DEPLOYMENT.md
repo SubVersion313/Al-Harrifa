@@ -1,139 +1,75 @@
-# El-Harrifa Deployment Guide
-
-This guide provides step-by-step instructions for deploying the El-Harrifa e-commerce platform for course evaluation.
+# Deploying Al-Harrifa to MonsterASP
 
 ## Prerequisites
-
-1. Development Environment:
-   - .NET 7.0 SDK
-   - MySQL Server
-   - Visual Studio 2022 or VS Code
-   - Git
-
-2. Required Accounts:
-   - GitHub account (for code hosting)
-   - Azure Student account (for free hosting)
+1. .NET 6.0 SDK installed on your local machine
+2. MonsterASP hosting account with:
+   - SQL Server database
+   - ASP.NET Core hosting
+   - FTP access
 
 ## Deployment Steps
 
-### 1. Code Preparation
+### 1. Database Setup
+1. Log in to your MonsterASP control panel
+2. Create a new SQL Server database
+3. Note down the following details:
+   - Server name (e.g., `your-server.monsterasp.net`)
+   - Database name
+   - Username
+   - Password
 
-1. Run the cleanup script:
-   ```bash
-   cd Frontend
-   cleanup.bat
-   ```
+### 2. Update Configuration
+1. Open `appsettings.Production.json`
+2. Update the connection string with your MonsterASP database details:
+```json
+"ConnectionStrings": {
+    "DefaultConnection": "Server=YOUR_SERVER.monsterasp.net;Database=YOUR_DATABASE;User=YOUR_USERNAME;Password=YOUR_PASSWORD;TrustServerCertificate=True;"
+}
+```
 
-2. Update configuration:
-   - Edit `appsettings.Production.json`
-   - Set database connection string
-   - Configure logging path
+### 3. Build and Deploy
+1. Run the deployment script:
+```bash
+deploy.bat
+```
+2. This will create a `publish` directory with all necessary files
 
-3. Test locally:
-   ```bash
-   dotnet run
-   ```
+### 4. Upload to MonsterASP
+1. Connect to your MonsterASP hosting via FTP
+2. Upload all contents from the `publish` directory to your website's root directory
+3. Make sure to maintain the following directory structure:
+   - `/wwwroot/uploads` - For product images
+   - `/logs` - For application logs
 
-### 2. Database Setup
+### 5. Database Migration
+1. Connect to your MonsterASP database using SQL Server Management Studio
+2. Run the `SampleData.sql` script to create the database schema and initial data
 
-1. Create MySQL database:
-   ```sql
-   CREATE DATABASE El_Harrifa;
-   ```
-
-2. Run database script:
-   ```bash
-   mysql -u student -p El_Harrifa < El_Harrifa.sql
-   ```
-
-3. Verify tables:
-   ```sql
-   USE El_Harrifa;
-   SHOW TABLES;
-   ```
-
-### 3. Azure Deployment
-
-1. Create Azure Web App:
-   - Go to Azure Portal
-   - Create new Web App
-   - Select .NET 7.0 runtime
-   - Choose free tier
-
-2. Configure deployment:
-   - Set up GitHub Actions
-   - Configure environment variables
-   - Set up MySQL connection
-
-3. Deploy:
-   - Push to GitHub
-   - Monitor deployment
-   - Verify application
-
-### 4. Post-Deployment
-
-1. Verify functionality:
-   - User registration
-   - Product listing
+### 6. Verify Deployment
+1. Visit your website URL
+2. Test the following functionality:
+   - User registration and login
+   - Product browsing
+   - Product creation
+   - Image uploads
    - Shopping cart
-   - Checkout process
-
-2. Test security:
-   - Login/Logout
-   - Password reset
-   - File upload
-   - Session management
-
-3. Performance check:
-   - Page load times
-   - Image loading
-   - Database queries
-   - Error handling
-
-## Course Evaluation Checklist
-
-- [ ] Code organization
-- [ ] Database design
-- [ ] Security implementation
-- [ ] User interface
-- [ ] Error handling
-- [ ] Documentation
-- [ ] Deployment
-- [ ] Testing
 
 ## Troubleshooting
 
-1. Database Connection:
-   - Verify connection string
-   - Check MySQL service
-   - Test database access
+### Common Issues
+1. **Database Connection Error**
+   - Verify connection string in `appsettings.Production.json`
+   - Check if database credentials are correct
+   - Ensure SQL Server is running on MonsterASP
 
-2. Application Errors:
-   - Check logs in `logs` directory
-   - Verify file permissions
-   - Test local deployment
+2. **Image Upload Issues**
+   - Check if `/wwwroot/uploads` directory exists and has write permissions
+   - Verify file size limits in `appsettings.Production.json`
 
-3. Performance Issues:
-   - Optimize images
-   - Check database indexes
-   - Monitor memory usage
+3. **Application Errors**
+   - Check the logs in `/logs` directory
+   - Verify all required files are uploaded
+   - Ensure proper file permissions
 
-## Support
-
-For course-related issues:
-1. Check documentation
-2. Review error logs
-3. Contact course instructor
-
-## Notes
-
-- This is a course project deployment
-- Basic security measures are implemented
-- Some features are simplified
-- Database is configured for demonstration
-
-## Author
-
-[Your Name]
-Course: [Course Name]
-Year: 2024 
+### Support
+If you encounter any issues during deployment, please contact MonsterASP support or create an issue in the project repository. 

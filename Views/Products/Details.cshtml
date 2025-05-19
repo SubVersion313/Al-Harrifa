@@ -1,4 +1,4 @@
-@model Product
+@model AlHarrifa.Models.Product
 @{
     ViewBag.Title = "Product Details";
 }
@@ -27,6 +27,9 @@ else
 }
 @if (User.IsInRole("Admin"))
 {
-    <a href="/Products/Edit/@Model.Id">Edit</a> |
-    <a href="/Products/Delete/@Model.Id" onclick="return confirm('Are you sure?')">Delete</a>
+    <div>
+        <a href="/Products/Edit/@Model.Id">Edit</a>
+        |
+        <a href="/Products/Delete/@Model.Id" onclick="return confirm('Are you sure?')">Delete</a>
+    </div>
 }

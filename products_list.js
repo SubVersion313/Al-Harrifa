@@ -1,195 +1,283 @@
 // products_list.js
-document.addEventListener('DOMContentLoaded', () => {
-    // Get all products
-    const allProducts = Object.values(window.products).flat();
-    let filteredProducts = [...allProducts];
-    
-    // DOM elements
-    const container = document.getElementById('category-sections');
-    const priceValueElement = document.getElementById('priceValue');
-    const categoryCheckboxes = document.querySelectorAll('input[name="category"]');
+let currentPage = 1;
+let currentCategory = null;
+let currentPriceRange = 500;
 
-    // Initialize with all categories checked
-    document.querySelectorAll('input[name="category"]').forEach(checkbox => {
-        checkbox.checked = true;
-    });
-
-    // Render function
-    function renderProducts() {
-        container.innerHTML = '';
-        
-        // Group products by category
-        const categories = filteredProducts.reduce((acc, product) => {
-            if (!acc[product.category]) acc[product.category] = [];
-            acc[product.category].push(product);
-            return acc;
-        }, {});
-
-        // Create category sections
-        Object.entries(categories).forEach(([category, products]) => {
-            const section = document.createElement('div');
-            section.className = 'category-section';
-            section.id = category;
-            
-            // Create header
-            const header = document.createElement('h2');
-            header.className = 'category-header';
-            header.textContent = formatCategoryName(category);
-            
-            // Create items container
-            const itemsContainer = document.createElement('div');
-            itemsContainer.className = 'items';
-            
-            // Append products
-            products.forEach(product => {
-                itemsContainer.appendChild(createProductElement(product));
-            });
-            
-            // Build section
-            section.appendChild(header);
-            section.appendChild(itemsContainer);
-            container.appendChild(section);
+async function fetchProducts(page = 1, category = null, maxPrice = 500) {
+    try {
+        const queryParams = new URLSearchParams({
+            page,
+            pageSize: 12,
+            ...(category && { category }),
+            maxPrice
         });
+
+        const response = await fetch(`/api/products?${queryParams}`);
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.message || 'Failed to fetch products');
+        }
+        const data = await response.json();
+
+        // Validate response data
+        if (!data.products || !Array.isArray(data.products)) {
+            throw new Error('Invalid response format');
+        }
+        
+        return data;
+    } catch (error) {
+        console.error('Error fetching products:', error);
+        showNotification('Failed to load products. Please try again later.');
+        return { products: [], pagination: { currentPage: 1, totalPages: 1, totalItems: 0, pageSize: 12 } };
+    }
+}
+
+function renderPagination(pagination) {
+    const paginationContainer = document.createElement('div');
+    paginationContainer.className = 'pagination';
+            
+    // Previous button
+    const prevButton = document.createElement('button');
+    prevButton.textContent = '←';
+    prevButton.disabled = pagination.currentPage === 1;
+    prevButton.onclick = () => loadProducts(pagination.currentPage - 1);
+    paginationContainer.appendChild(prevButton);
+            
+    // Page numbers
+    for (let i = 1; i <= pagination.totalPages; i++) {
+        const pageButton = document.createElement('button');
+        pageButton.textContent = i;
+        pageButton.className = i === pagination.currentPage ? 'active' : '';
+        pageButton.onclick = () => loadProducts(i);
+        paginationContainer.appendChild(pageButton);
     }
 
-    // Create individual product element
-    function createProductElement(product) {
-        const element = document.createElement('div');
-        element.className = 'item';
-        
-        const htmlContent = `
-            <img src="${product.img}" alt="${product.name}">
-            <div class="info">
-                <h3>${product.name}</h3>
-                <p class="price">$${product.price.toFixed(2)}</p>
-                <div class="product-controls">
-                    <div class="quantity-selector">
-                        <label>Qty:</label>
-                        <input type="number" class="quantity-input" min="1" value="1">
-                    </div>
-                    <div class="product-buttons">
-                        <button onclick="addToCart('${product.category}', ${product.id})">Add to Cart</button>
-                    </div>
+    // Next button
+    const nextButton = document.createElement('button');
+    nextButton.textContent = '→';
+    nextButton.disabled = pagination.currentPage === pagination.totalPages;
+    nextButton.onclick = () => loadProducts(pagination.currentPage + 1);
+    paginationContainer.appendChild(nextButton);
+
+    return paginationContainer;
+    }
+
+function createProductCard(product) {
+    // Validate product data
+    if (!product || typeof product !== 'object') {
+        console.error('Invalid product data:', product);
+        return null;
+    }
+
+    const { id, name, price, imageUrl, category, sellerName } = product;
+    
+    // Validate required fields
+    if (!id || !name || typeof price !== 'number' || !imageUrl || !category) {
+        console.error('Missing required product fields:', product);
+        return null;
+    }
+
+    const productCard = document.createElement('div');
+    productCard.className = 'product-card';
+    productCard.setAttribute('data-category', category);
+    productCard.setAttribute('data-id', id);
+    
+    productCard.innerHTML = `
+        <img src="${imageUrl}" alt="${name}" onerror="this.src='placeholder.jpeg'">
+        <div class="product-info">
+            <h3>${name}</h3>
+            <p class="price">$${price.toFixed(2)}</p>
+            <p class="seller">By ${sellerName || 'Unknown Seller'}</p>
+            <div class="product-actions">
+                <button onclick="addToCart('${category}', ${id})">Add to Cart</button>
+                <button onclick="buyNow('${category}', ${id})">Buy Now</button>
                 </div>
             </div>
         `;
         
-        element.innerHTML = htmlContent;
-        return element;
+    return productCard;
     }
 
-    // Format category name for display
-    function formatCategoryName(category) {
-        return category
-            .replace(/([A-Z])/g, ' $1')
-            .toUpperCase();
-    }
+async function loadProducts(page = 1) {
+    currentPage = page;
+    const productsContainer = document.querySelector('.all-products-grid');
+    if (!productsContainer) return;
 
-    // Filter functions
-    function updateFilters() {
+    // Show loading state
+    productsContainer.innerHTML = '<div class="loading">Loading products...</div>';
+
+    try {
+        // Get selected categories
         const selectedCategories = Array.from(document.querySelectorAll('input[name="category"]:checked'))
-            .map(checkbox => checkbox.value);
-        
-        const maxPrice = parseFloat(document.getElementById('priceRange').value);
-        
-        filteredProducts = allProducts.filter(product => {
-            const categoryMatch = selectedCategories.includes(product.category);
-            const priceMatch = product.price <= maxPrice;
-            return categoryMatch && priceMatch;
+            .map(cb => cb.value);
+
+        // Fetch products
+        const { products, pagination } = await fetchProducts(
+            page,
+            selectedCategories.length === 1 ? selectedCategories[0] : null,
+            currentPriceRange
+        );
+
+        // Clear loading state
+        productsContainer.innerHTML = '';
+
+        // Create products grid
+        const grid = document.createElement('div');
+        grid.className = 'products-grid';
+
+        // Add products to grid
+        products.forEach(product => {
+            const productCard = createProductCard(product);
+            if (productCard) {
+                grid.appendChild(productCard);
+            }
         });
-        
-        renderProducts();
+
+        // Show message if no products found
+        if (products.length === 0) {
+            productsContainer.innerHTML = '<div class="no-products">No products found matching your criteria</div>';
+            return;
+        }
+
+        productsContainer.appendChild(grid);
+        productsContainer.appendChild(renderPagination(pagination));
+    } catch (error) {
+        console.error('Error loading products:', error);
+        productsContainer.innerHTML = '<div class="error">Failed to load products. Please try again later.</div>';
+    }
     }
 
-    // Event listeners
-    categoryCheckboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', updateFilters);
+// Initialize filters
+document.addEventListener('DOMContentLoaded', () => {
+    // Category filter
+    document.querySelectorAll('input[name="category"]').forEach(checkbox => {
+        checkbox.addEventListener('change', () => {
+            currentPage = 1;
+            loadProducts();
+    });
     });
 
-    document.getElementById('priceRange').addEventListener('input', function() {
-        priceValueElement.textContent = this.value;
-        updateFilters();
-    });
+    // Price range filter
+    const priceRange = document.getElementById('priceRange');
+    const priceValue = document.getElementById('priceValue');
+    if (priceRange && priceValue) {
+        priceRange.addEventListener('input', (e) => {
+            currentPriceRange = parseInt(e.target.value);
+            priceValue.textContent = currentPriceRange;
+        });
 
-    // Initial render
-    renderProducts();
+        priceRange.addEventListener('change', () => {
+            currentPage = 1;
+            loadProducts();
+    });
+    }
+
+    // Initial load
+    loadProducts();
 });
 
-// Cart functions (reuse from index.js)
+// Cart functions
 function addToCart(category, productId) {
-    const itemElement = document.querySelector(`[data-category="${category}"][data-id="${productId}"]`);
-    const quantityInput = itemElement?.querySelector('.quantity-input');
-    const quantity = parseInt(quantityInput?.value) || 1;
-    
-    const product = window.products[category].find(item => item.id === productId);
-    
-    if (product) {
-        const existingItem = window.cart.find(item => 
-            item.id === productId && item.category === category
-        );
-        
-        if (existingItem) {
-            existingItem.quantity += quantity;
-        } else {
-            window.cart.push({
-                ...product,
-                quantity: quantity
-            });
+    try {
+        const productCard = document.querySelector(`[data-category="${category}"][data-id="${productId}"]`);
+        if (!productCard) {
+            throw new Error('Product not found');
         }
-        
+
+        const product = {
+            id: productId,
+            name: productCard.querySelector('h3').textContent,
+            price: parseFloat(productCard.querySelector('.price').textContent.replace('$', '')),
+            category: category,
+            imageUrl: productCard.querySelector('img').src
+        };
+
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cart.push(product);
+        localStorage.setItem('cart', JSON.stringify(cart));
         updateCart();
-        showNotification(`${quantity} ${product.name} added to cart!`);
-        if (quantityInput) quantityInput.value = 1;
+        showNotification('Product added to cart!');
+    } catch (error) {
+        console.error('Error adding to cart:', error);
+        showNotification('Failed to add product to cart. Please try again.');
     }
 }
 
+function buyNow(category, productId) {
+    addToCart(category, productId);
+    window.location.href = 'electronicpayment.html';
+}
+
 function updateCart() {
-    const cartContainer = document.getElementById('cart-items');
-    const totalPriceElement = document.getElementById('total-price');
-    
-    cartContainer.innerHTML = '';
-    
+    try {
+        const cartItems = document.getElementById('cart-items');
+        const cartTotal = document.getElementById('cart-total');
+        if (!cartItems || !cartTotal) return;
+
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cartItems.innerHTML = '';
+        
+        let total = 0;
     cart.forEach((item, index) => {
+            if (!item || !item.price) {
+                console.warn('Invalid cart item:', item);
+                return;
+            }
+            total += item.price;
         const cartItem = document.createElement('div');
         cartItem.className = 'cart-item';
         cartItem.innerHTML = `
-            <p>${item.name} (Qty: ${item.quantity}) - $${(item.price * item.quantity).toFixed(2)}</p>
-            <button onclick="removeFromCart(${index})">Remove</button>
+                <span>${item.name || 'Unknown Product'}</span>
+                <span>$${item.price.toFixed(2)}</span>
+                <button onclick="removeFromCart(${index})">×</button>
         `;
-        cartContainer.appendChild(cartItem);
+            cartItems.appendChild(cartItem);
     });
 
-    const totalPrice = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
-    totalPriceElement.textContent = totalPrice.toFixed(2);
+        cartTotal.textContent = `$${total.toFixed(2)}`;
+    } catch (error) {
+        console.error('Error updating cart:', error);
+        showNotification('Failed to update cart. Please refresh the page.');
+    }
+}
+
+function removeFromCart(index) {
+    try {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        if (index < 0 || index >= cart.length) {
+            throw new Error('Invalid cart item index');
+        }
+        cart.splice(index, 1);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCart();
+        showNotification('Item removed from cart');
+    } catch (error) {
+        console.error('Error removing from cart:', error);
+        showNotification('Failed to remove item from cart. Please try again.');
+    }
+}
+
+function clearCart() {
+    localStorage.removeItem('cart');
+    updateCart();
+}
+
+function proceedToPayment() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    if (cart.length === 0) {
+        showNotification('Your cart is empty!');
+        return;
+    }
+    window.location.href = 'electronicpayment.html';
 }
 
 function showNotification(message) {
     const notification = document.createElement('div');
-    notification.className = 'cart-notification';
+    notification.className = 'notification';
     notification.textContent = message;
     document.body.appendChild(notification);
-    setTimeout(() => notification.remove(), 2000);
-}
-
-function scrollToCategory(category) {
-    if (!category) return;
     
-    const section = document.getElementById(category);
-    if (section) {
-        section.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-        });
-    } else {
-        alert('This category is currently filtered out or unavailable');
-    }
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
 }
-
-document.querySelectorAll('input[name="category"]').forEach(checkbox => {
-    checkbox.addEventListener('change', updateFilters);
-});
-
-document.getElementById('priceRange').addEventListener('input', function() {
-    document.getElementById('priceValue').textContent = this.value;
-    updateFilters();
-});

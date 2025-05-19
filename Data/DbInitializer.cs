@@ -1,3 +1,6 @@
+using AlHarrifa.Data;
+using AlHarrifa.Models;
+
 public static class DbInitializer
 {
     public static void Initialize(ApplicationDbContext context)
@@ -5,14 +8,15 @@ public static class DbInitializer
         context.Database.EnsureCreated();
         if (!context.Users.Any(u => u.Email == "admin@site.com"))
         {
-            context.Users.Add(new User
+            var admin = new User
             {
                 NameUser = "Admin",
                 Email = "admin@site.com",
-                PasswordUser = PasswordHasher.Hash("adminpass"),
                 IsAdmin = true,
                 CreatedAt = DateTime.Now
-            });
+            };
+            admin.SetPassword("adminpass");
+            context.Users.Add(admin);
         }
         if (!context.Categories.Any())
         {

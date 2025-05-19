@@ -3,96 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Browse Products | AL-HARRIFA STORE</title>
-    <link rel="icon" href="3be07d4d222f06f0333810def3d4dfd7-removebg-preview.png" type="image/png">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
-    <link href="products_list.css" rel="stylesheet">
+    <title>Products - Al-Harrifa</title>
     <link href="index.css" rel="stylesheet">
+    <link href="products_list.css" rel="stylesheet">
+    <style>
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 2rem 0;
+        }
+
+        .pagination button {
+            padding: 0.5rem 1rem;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .pagination button.active {
+            background: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+        }
+
+        .pagination button:disabled {
+            background: #f5f5f5;
+            color: #999;
+            cursor: not-allowed;
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #4CAF50;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 1000;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            padding: 1rem;
+            border: none;
+            border-radius: 50%;
+            background: #4CAF50;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+
+        .mobile-menu-toggle.filters {
+            left: 20px;
+        }
+
+        .mobile-menu-toggle.cart {
+            right: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
-        <div class="logo">
-            <img src="Logo.png" alt="Logo">
-            <h2>AL-HARRIFA</h2>
-        </div>  
-        <nav>
+        <nav aria-label="Main navigation">
             <a href="index.html">Home</a>
+            <a href="products_list.html" class="active" aria-current="page">Products</a>
+            <a href="my_account.html">My Account</a>
             <a href="my_products.html">My Products</a>
             <a href="my_purchases.html">My Purchases</a>
-            <a href="products_list.html">Browse Products</a>
-            <a href="login.html">Login</a>
-            <div class="dropdown-nav">
-                <select class="nav-dropdown" onchange="scrollToCategory(this.value)">
-                    <option value="">Browse Categories</option>
-                    <option value="homeDecor">Home Decor</option>
-                    <option value="artCollectibles">Art & Collectibles</option>
-                    <option value="accessories">Accessories</option>
-                    <option value="paperGoods">Paper Goods</option>
-                    <option value="toys">Toys</option>
-                    <option value="fiberCrafts">Fiber Crafts</option>
-                </select>
-                <div class="dropdown-arrow">▼</div>
-            </div>
         </nav>
     </header>
 
-    <div class="container">
-        <div class="filters-section">
-            <div class="filters-sidebar">
-                <h3>Filter Products</h3>
-                
-                <div class="filter-group">
-                    <h4>Categories</h4>
+    <main>
+        <div class="filters" role="complementary" aria-label="Product filters">
+            <div class="filter-section">
+                <h3>Categories</h3>
+                <fieldset>
+                    <legend class="sr-only">Product Categories</legend>
                     <label><input type="checkbox" name="category" value="homeDecor" checked> Home Decor</label>
                     <label><input type="checkbox" name="category" value="artCollectibles" checked> Art & Collectibles</label>
                     <label><input type="checkbox" name="category" value="accessories" checked> Accessories</label>
                     <label><input type="checkbox" name="category" value="paperGoods" checked> Paper Goods</label>
-                    <label><input type="checkbox" name="category" value="toys" checked> Toys</label>
-                    <label><input type="checkbox" name="category" value="fiberCrafts" checked> Fiber Crafts</label>
-                </div>
-
-                <div class="filter-group">
-                    <h4>Price Range</h4>
-                    <input type="range" id="priceRange" min="0" max="500" step="10" value="500">
-                    <div class="price-display">
-                        <span>$0</span>
-                        <span>$<span id="priceValue">500</span></span>
-                    </div>
-                </div>
+                </fieldset>
             </div>
 
-            <div class="all-products-grid">
-                <h2 class="browse-title">All Products</h2>
-                <div class="category-sections" id="category-sections"></div>
+            <div class="filter-section">
+                <h3>Price Range</h3>
+                <label for="priceRange">Maximum Price: $<span id="priceValue">500</span></label>
+                <input type="range" id="priceRange" min="0" max="500" value="500" step="10" aria-valuemin="0" aria-valuemax="500" aria-valuenow="500">
             </div>
         </div>
-        <section id="cart" class="section">
-            <h2>Your Cart</h2>
-            <div id="cart-items"></div>
-            <p>Total: $<span id="total-price">0.00</span></p>
-            <button onclick="clearCart()">Clear Cart</button>
-            <button onclick="proceedToPayment()">Proceed to Payment</button>
-        </section>
+
+        <div class="cart-section" role="complementary" aria-label="Shopping cart">
+            <h3>Shopping Cart</h3>
+            <div id="cart-items" role="list" aria-label="Cart items"></div>
+            <div class="cart-total">
+                Total: $<span id="cart-total">0.00</span>
+            </div>
+            <button onclick="clearCart()" aria-label="Clear shopping cart">Clear Cart</button>
+            <button onclick="proceedToPayment()" aria-label="Proceed to payment">Proceed to Payment</button>
     </div>
 
-    <footer>
-        <p>&copy; 2025 SC Al-HARRIFA STORE. All rights reserved.</p>
-        <div class="social-icons">
-            <a class="1"  href="https://www.facebook.com/profile.php?id=61571309936419&mibextid=ZbWKwL" target="_blank" aria-label="Facebook">
-                <i class="fab fa-facebook-f"></i>
-            </a>
-            <a  class="3"  href="https://www.instagram.com/mavro_sc/profilecard/?igsh=Zjg5c2drem9qMDNr" target="_blank" aria-label="Instagram">
-                <i class="fab fa-instagram"></i>
-            </a>
-            <a class="6" href="https://www.tiktok.com/@mavro_sc?_t=ZS-8sZAHXjtuCG&_r=1" target="_blank" aria-label="TikTok">
-                <i class="fab fa-tiktok"></i>
-            </a>
-           
-            
+        <div class="all-products-grid" role="main" aria-label="Product listings">
+            <!-- Products will be loaded here -->
         </div>
-    </footer>
+    </main>
+
+    <button class="mobile-menu-toggle filters" onclick="toggleFilters()" aria-label="Toggle filters menu" aria-expanded="false">☰</button>
+    <button class="mobile-menu-toggle cart" onclick="toggleCart()" aria-label="Toggle cart menu" aria-expanded="false">🛒</button>
+
     <script src="index.js"></script>
     <script src="products_list.js"></script>
+    <script>
+        function toggleFilters() {
+            const filters = document.querySelector('.filters');
+            const button = document.querySelector('.mobile-menu-toggle.filters');
+            const isExpanded = filters.classList.toggle('visible');
+            button.setAttribute('aria-expanded', isExpanded);
+        }
+
+        function toggleCart() {
+            const cart = document.querySelector('.cart-section');
+            const button = document.querySelector('.mobile-menu-toggle.cart');
+            const isExpanded = cart.classList.toggle('visible');
+            button.setAttribute('aria-expanded', isExpanded);
+        }
+
+        // Close mobile menus when clicking outside
+        document.addEventListener('click', (e) => {
+            const filters = document.querySelector('.filters');
+            const cart = document.querySelector('.cart-section');
+            const filtersToggle = document.querySelector('.mobile-menu-toggle.filters');
+            const cartToggle = document.querySelector('.mobile-menu-toggle.cart');
+
+            if (!filters.contains(e.target) && !filtersToggle.contains(e.target)) {
+                filters.classList.remove('visible');
+                filtersToggle.setAttribute('aria-expanded', 'false');
+            }
+
+            if (!cart.contains(e.target) && !cartToggle.contains(e.target)) {
+                cart.classList.remove('visible');
+                cartToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // Update ARIA labels for price range
+        const priceRange = document.getElementById('priceRange');
+        const priceValue = document.getElementById('priceValue');
+        if (priceRange && priceValue) {
+            priceRange.addEventListener('input', (e) => {
+                const value = e.target.value;
+                priceValue.textContent = value;
+                priceRange.setAttribute('aria-valuenow', value);
+            });
+        }
+    </script>
 </body>
 </html>

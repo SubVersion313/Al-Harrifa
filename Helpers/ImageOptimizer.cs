@@ -3,7 +3,7 @@ using SixLabors.ImageSharp.Processing;
 using SixLabors.ImageSharp.Formats.Jpeg;
 using SixLabors.ImageSharp.Formats.Png;
 
-namespace El_Harrifa.Helpers
+namespace AlHarrifa.Helpers
 {
     public static class ImageOptimizer
     {
@@ -38,7 +38,7 @@ namespace El_Harrifa.Helpers
                     }
                     else if (extension == ".png")
                     {
-                        await image.SaveAsPngAsync(outputStream, new PngEncoder { CompressionLevel = 6 });
+                        await image.SaveAsPngAsync(outputStream, new PngEncoder { CompressionLevel = PngCompressionLevel.Level6 });
                     }
                 }
             }

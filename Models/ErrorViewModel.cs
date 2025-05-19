@@ -1,4 +1,4 @@
-namespace El_Harrifa.Models
+namespace AlHarrifa.Models
 {
     public class ErrorViewModel
     {

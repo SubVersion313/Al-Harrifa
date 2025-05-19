@@ -1,0 +1,6 @@
+@AlHarrifa_HostAddress = http://localhost:5065
+
+GET {{AlHarrifa_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

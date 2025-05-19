@@ -1,12 +1,5 @@
--- Create database
-IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'El_Harrifa')
-BEGIN
-    CREATE DATABASE El_Harrifa;
-END
-GO
-
-USE El_Harrifa;
-GO
+-- Remove database creation and USE statement since database already exists
+-- Just create the tables
 
 -- Create Users table
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Users')

@@ -1,6 +1,7 @@
 using System.Diagnostics;
+using MySqlConnector;
 
-namespace El_Harrifa.Helpers
+namespace AlHarrifa.Helpers
 {
     public static class DatabaseBackup
     {
@@ -48,13 +49,13 @@ namespace El_Harrifa.Helpers
                         throw new Exception($"Backup failed with exit code {process.ExitCode}");
                     }
                 }
-
-                return backupFile;
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to create database backup: {ex.Message}", ex);
+                throw new Exception($"Backup process failed: {ex.Message}");
             }
+
+            return backupFile;
         }
 
         public static void CleanupOldBackups(string backupPath, int daysToKeep = 7)
