@@ -16,10 +16,22 @@
             <h1>Login or Join Us!</h1>
         </div>
         <form id="loginForm">
-            <input type="text" id="userId" placeholder="Enter your ID" required>
-            <input type="password" id="password" placeholder="Enter your password" required>
-            <button type="submit">Continue</button>
-        </form>
+    <input type="text" id="userId" placeholder="Enter your ID" required>
+    <input type="password" id="password" placeholder="Enter your password" required>
+    <button type="submit">Continue</button>
+</form>
+
+<script>
+document.getElementById("loginForm").addEventListener("submit", function(e) {
+    e.preventDefault(); // يمنع إرسال الفورم بالطريقة العادية
+
+    // يمكنك إضافة تحقق من المدخلات هنا لو حبيت
+
+    // التوجّه إلى صفحة الهوم
+    window.location.href = "index.html"; // غيّر المسار حسب اسم ملف الهوم عندك
+});
+</script>
+
         <div class="or-divider">
             <span>OR</span>
         </div>
